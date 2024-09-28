@@ -1,5 +1,8 @@
 import { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PrivateRoutes from "./components/auth/PrivateRoutes";
+import PageNotFound from "./pages/PageNotFound";
+
 // import Home from "./pages/Home";
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -10,10 +13,14 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/chat/:chatId" element={<Chat />} />
+            <Route path="/groups" element={<Group />} />
+          </Route>
+
           <Route path="/login" element={<Login />} />
-          <Route path="/chat/:chatId" element={<Chat />} />
-          <Route path="/groups" element={<Group />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </>
