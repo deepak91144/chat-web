@@ -1,0 +1,49 @@
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
+import CommonButton from "../UI/CommonButton";
+
+const CommonDialog = ({
+  open,
+  handleClose,
+  dialogContent,
+  dialogTitle,
+  firstButtonText,
+  secondButtonText,
+  firstButtonBgColor,
+  secondButtonBgColor,
+}: any) => {
+  return (
+    <>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
+        <DialogContent>{dialogContent}</DialogContent>
+        <DialogActions>
+          <CommonButton
+            text={firstButtonText}
+            onClickAction={handleClose}
+            variant="contained"
+            bgColor={firstButtonBgColor}
+          />
+          <CommonButton
+            text={secondButtonText}
+            onClickAction={handleClose}
+            variant="contained"
+            bgColor={secondButtonBgColor}
+          />
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
+
+export default CommonDialog;

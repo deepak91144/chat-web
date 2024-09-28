@@ -1,6 +1,8 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import Home from "./pages/Home";
+import PrivateRoutes from "./components/auth/PrivateRoutes";
+import PageNotFound from "./pages/PageNotFound";
+import { LayoutLoader } from "./components/layout/Loadeerrs";
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const Chat = lazy(() => import("./pages/Chat"));
@@ -9,12 +11,18 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/chat/:chatId" element={<Chat />} />
-          <Route path="/groups" element={<Group />} />
-        </Routes>
+        <Suspense fallback={<LayoutLoader />}>
+          <Routes>
+            <Route element={<PrivateRoutes />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/chat/:chatId" element={<Chat />} />
+              <Route path="/groups" element={<Group />} />
+            </Route>
+
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </>
   );
