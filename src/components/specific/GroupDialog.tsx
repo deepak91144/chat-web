@@ -1,22 +1,31 @@
 import { useState } from "react";
 import CommonDialog from "../common-dialog/CommonDialog";
+import GroupDialogContent from "./GroupDialogContent";
 
-const GroupDialog = () => {
-  const [isOpen, setIsOpen] = useState(true);
+const GroupDialog = ({ isGroup, setIsGroup }: any) => {
   const handleClose = () => {
-    setIsOpen(false);
+    setIsGroup(false);
+  };
+  const handleSubmit = () => {
+    setIsGroup(false);
+  };
+  const handleCancel = () => {
+    setIsGroup(false);
   };
   return (
     <>
       <CommonDialog
-        open={isOpen}
+        open={isGroup}
         handleClose={handleClose}
-        dialogTitle="Group"
-        dialogContent={<h1>this is group dialog</h1>}
-        firstButtonText="Add"
+        submitAction={handleSubmit}
+        cancelAction={handleCancel}
+        dialogTitle="New Group"
+        dialogContent={<GroupDialogContent />}
+        firstButtonText="Create"
         secondButtonText="Cancel"
         firstButtonBgColor="success"
         secondButtonBgColor="danger"
+        width="xs"
       />
     </>
   );

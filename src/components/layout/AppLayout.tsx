@@ -8,7 +8,9 @@ const AppLayout = () => (WrapedComponent: any) => {
       <>
         <Title />
         <Header />
-        <WrapedComponent {...props} />
+        <div className="relative top-16">
+          <WrapedComponent {...props} />
+        </div>
         <Footer />
       </>
     );

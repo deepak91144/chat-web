@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import ChatList from "../components/chat/ChatList";
 import AppLayout from "../components/layout/AppLayout";
 import { sampleData } from "../constants/sampleData";
+import Profile from "./Profile";
 
 const Home = () => {
   const params = useParams();
@@ -12,12 +13,13 @@ const Home = () => {
   };
   return (
     <>
-      <div className="min-h-[100vh] mt-5">
+      <div className="min-h-[100vh] ">
         <ChatList
           chats={sampleData}
           chatId={chatId}
           handleDeleteChat={handleDeleteChat}
         />
+        <Profile />
       </div>
     </>
   );

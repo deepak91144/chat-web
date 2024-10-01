@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import ChatList from "../components/chat/ChatList";
 import AppLayout from "../components/layout/AppLayout";
 import { sampleData } from "../constants/sampleData";
+import Chatbox from "../components/chat/Chatbox";
+import Profile from "./Profile";
 
 const Chat = () => {
   const params = useParams();
@@ -13,11 +15,21 @@ const Chat = () => {
   return (
     <>
       <div className="w-screen h-screen">
-        <ChatList
-          chats={sampleData}
-          chatId={chatId}
-          handleDeleteChat={handleDeleteChat}
-        />
+        <div className="flex ">
+          <div className="w-[30%] pr-2">
+            <ChatList
+              chats={sampleData}
+              chatId={chatId}
+              handleDeleteChat={handleDeleteChat}
+            />
+          </div>
+          <div className="w-[60%]">
+            <Chatbox />
+          </div>
+          <div className="w-[25%]">
+            <Profile />
+          </div>
+        </div>
       </div>
     </>
   );
