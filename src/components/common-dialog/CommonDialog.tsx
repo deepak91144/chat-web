@@ -16,6 +16,9 @@ const CommonDialog = ({
   secondButtonText,
   firstButtonBgColor,
   secondButtonBgColor,
+  width,
+  submitAction,
+  cancelAction,
 }: any) => {
   return (
     <>
@@ -24,19 +27,21 @@ const CommonDialog = ({
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        fullWidth
+        maxWidth={width}
       >
         <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
         <DialogContent>{dialogContent}</DialogContent>
         <DialogActions>
           <CommonButton
             text={firstButtonText}
-            onClickAction={handleClose}
+            onClickAction={submitAction}
             variant="contained"
             bgColor={firstButtonBgColor}
           />
           <CommonButton
             text={secondButtonText}
-            onClickAction={handleClose}
+            onClickAction={cancelAction}
             variant="contained"
             bgColor={secondButtonBgColor}
           />

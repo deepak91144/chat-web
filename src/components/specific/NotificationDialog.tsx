@@ -1,18 +1,25 @@
-import { useState } from "react";
 import CommonDialog from "../common-dialog/CommonDialog";
+import NotificationDialogContent from "./NotificationDialogContent";
 
-const NotificationDialog = () => {
-  const [isOpen, setIsOpen] = useState(true);
+const NotificationDialog = ({ isNotification, setIsNotification }: any) => {
   const handleClose = () => {
-    setIsOpen(false);
+    setIsNotification(false);
+  };
+  const handleSubmit = () => {
+    setIsNotification(false);
+  };
+  const handleCancel = () => {
+    setIsNotification(false);
   };
   return (
     <>
       <CommonDialog
-        open={isOpen}
+        open={isNotification}
         handleClose={handleClose}
         dialogTitle="Notifications"
-        dialogContent={<h1>this is notification dialog</h1>}
+        submitAction={handleSubmit}
+        cancelAction={handleCancel}
+        dialogContent={<NotificationDialogContent />}
         firstButtonText="ok"
         secondButtonText="Cancel"
         firstButtonBgColor="success"

@@ -8,23 +8,33 @@ const Login = () => {
   const toggleLoginSignupForm = () => {
     setShowLoginForm((pre) => !pre);
   };
+  const handleSignupFormSubmit = (values: any) => {
+    console.log(values);
+  };
+  const handleLoginFormSubmit = (values: any) => {
+    console.log(values);
+  };
   return (
     <>
       <div className="w-screen h-screen bg-blue-300 flex justify-center items-center">
         <Paper
           elevation={5}
           style={{
-            width: "40%",
-            height: "50%",
+            width: "25%",
+            minHeight: "55%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          {showLoginForm ? <LoginForm /> : <SignupForm />}
-          <br />
-          <div>OR</div>
+          {showLoginForm ? (
+            <LoginForm handleLoginFormSubmit={handleLoginFormSubmit} />
+          ) : (
+            <SignupForm handleSignupFormSubmit={handleSignupFormSubmit} />
+          )}
+
+          <div className="mt-2">OR</div>
           <p
             className="text-blue-300 cursor-pointer"
             onClick={toggleLoginSignupForm}
