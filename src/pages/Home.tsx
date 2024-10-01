@@ -14,12 +14,16 @@ const Home = () => {
   return (
     <>
       <div className="min-h-[100vh] ">
-        <ChatList
-          chats={sampleData}
-          chatId={chatId}
-          handleDeleteChat={handleDeleteChat}
-        />
-        <Profile />
+        <div className="w-[25%]">
+          <ChatList
+            chats={sampleData}
+            chatId={chatId}
+            handleDeleteChat={handleDeleteChat}
+          />
+        </div>
+        <div>
+          <Profile />
+        </div>
       </div>
     </>
   );
