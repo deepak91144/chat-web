@@ -7,6 +7,8 @@ import SearchDialog from "../specific/SearchDialog";
 import NotificationDialog from "../specific/NotificationDialog";
 import GroupDialog from "../specific/GroupDialog";
 import { Link, useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { logout } from "../../utils/auth";
 
 const Header = () => {
   const [isSearch, setIsSearch] = useState(false);
@@ -24,6 +26,9 @@ const Header = () => {
   };
   const redirectToHome = () => {
     navigate("/");
+  };
+  const logutUser = () => {
+    if (logout()) navigate("/login");
   };
   return (
     <>
@@ -46,6 +51,9 @@ const Header = () => {
             onClick={handleNotificationClick}
           >
             <NotificationsIcon />
+          </span>
+          <span className="p-2 cursor-pointer" onClick={logutUser}>
+            <LogoutIcon />
           </span>
         </div>
       </div>

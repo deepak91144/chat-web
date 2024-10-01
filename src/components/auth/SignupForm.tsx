@@ -2,15 +2,30 @@ import { Input } from "@mui/material";
 import CommonButton from "../UI/CommonButton";
 import personImage from "../../assets/images/personimage.png";
 import { useRef, useState } from "react";
+import { addNewUser } from "../../API/auth";
+import { authenticate } from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
 const SignupForm = ({ handleSignupFormSubmit }: any) => {
+  const navigate = useNavigate();
   const [signupFormValues, setSignupFormValues] = useState({
+    name: "",
     userName: "",
     email: "",
     password: "",
+    avatar: {
+      public_id: "dewfew",
+      url: "dwefd",
+    },
     userPhoto: "",
   });
   const fileInputRef = useRef(null);
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const res = await addNewUser(signupFormValues);
+    if (res) {
+      authenticate(res.token);
+      navigate("/");
+    }
+
     handleSignupFormSubmit(signupFormValues);
   };
   const handleOnChnage = (e: any) => {
@@ -54,6 +69,13 @@ const SignupForm = ({ handleSignupFormSubmit }: any) => {
           />
           <div>Upload Photo</div>
         </div>
+        <Input
+          placeholder="name"
+          name="name"
+          type="text"
+          className="	border rounded-md mt-5 "
+          onChange={handleOnChnage}
+        />
         <Input
           placeholder="useName"
           name="userName"
