@@ -6,10 +6,13 @@ import { useState } from "react";
 import SearchDialog from "../specific/SearchDialog";
 import NotificationDialog from "../specific/NotificationDialog";
 import GroupDialog from "../specific/GroupDialog";
+import { Link, useNavigate } from "react-router-dom";
+
 const Header = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [isGroup, setIsGroup] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
+  const navigate = useNavigate();
   const handleSearchClick = () => {
     setIsSearch((pre) => !pre);
   };
@@ -19,20 +22,25 @@ const Header = () => {
   const handleNotificationClick = () => {
     setIsNotification((pre) => !pre);
   };
+  const redirectToHome = () => {
+    navigate("/");
+  };
   return (
     <>
-      <div className="flex justify-between bg-red-300">
-        <div className="m-5">Chat App</div>
+      <div className="flex  justify-between bg-red-300 fixed w-screen z-50">
+        <div className="m-5 cursor-pointer" onClick={redirectToHome}>
+          Chat App
+        </div>
         <div className="m-5">
           <span className="p-2 cursor-pointer" onClick={handleSearchClick}>
             <SearchIcon />
           </span>
-          <span className="p-2 cursor-pointer">
+          <span className="p-2 cursor-pointer" onClick={handleGroupClick}>
             <AddIcon />
           </span>
-          <span className="p-2 cursor-pointer" onClick={handleGroupClick}>
+          <Link to="/groups" className="p-2 cursor-pointer">
             <GroupIcon />
-          </span>
+          </Link>
           <span
             className="p-2 cursor-pointer"
             onClick={handleNotificationClick}
@@ -42,10 +50,15 @@ const Header = () => {
         </div>
       </div>
       {isSearch && (
-        <SearchDialog openDialog={isSearch} setIsSearch={setIsSearch} />
+        <SearchDialog isSearch={isSearch} setIsSearch={setIsSearch} />
       )}
-      {isNotification && <NotificationDialog />}
-      {isGroup && <GroupDialog />}
+      {isNotification && (
+        <NotificationDialog
+          isNotification={isNotification}
+          setIsNotification={setIsNotification}
+        />
+      )}
+      {isGroup && <GroupDialog isGroup={isGroup} setIsGroup={setIsGroup} />}
     </>
   );
 };

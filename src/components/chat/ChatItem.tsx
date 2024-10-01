@@ -21,7 +21,9 @@ const ChatItem = ({
   return (
     <>
       <div
-        className="w-[50%] h-[80px] bg-blue-400 mt-2 flex items-center cursor-pointer "
+        className={`w-[100%] h-[80px] ${
+          index !== 0 && "mt-2"
+        } bg-blue-400  flex items-center cursor-pointer`}
         onClick={redirectToChat}
       >
         <AvatarCard avatar={avatar} />

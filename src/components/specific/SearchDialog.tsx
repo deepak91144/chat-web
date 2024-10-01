@@ -1,18 +1,26 @@
 import { useState } from "react";
 import CommonDialog from "../common-dialog/CommonDialog";
+import SearchDialogContent from "./SearchDialogContent";
 
-const SearchDialog = ({ openDialog }: any) => {
-  const [isOpen, setIsOpen] = useState(true);
+const SearchDialog = ({ isSearch, setIsSearch }: any) => {
+  const handleSearch = () => {
+    setIsSearch(false);
+  };
+  const handleCancel = () => {
+    setIsSearch(false);
+  };
   const handleClose = () => {
-    setIsOpen(false);
+    setIsSearch(false);
   };
   return (
     <>
       <CommonDialog
-        open={isOpen}
+        open={isSearch}
         handleClose={handleClose}
-        dialogTitle="Search Here"
-        dialogContent={<h1>this is search dialog</h1>}
+        submitAction={handleSearch}
+        cancelAction={handleCancel}
+        dialogTitle="Find People"
+        dialogContent={<SearchDialogContent />}
         firstButtonText="Add"
         secondButtonText="Cancel"
         firstButtonBgColor="success"
