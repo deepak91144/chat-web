@@ -1,13 +1,23 @@
-import { Input, Paper } from "@mui/material";
+import { Input } from "@mui/material";
 import CommonButton from "../UI/CommonButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { authenticate, isAuthenticated } from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../API/auth";
 
 const LoginForm = ({ handleLoginFormSubmit }: any) => {
+  const navigate = useNavigate();
   const [loginFormValues, setLoginFormValues] = useState({
-    email: "",
+    userName: "",
     password: "",
   });
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const result = await login(loginFormValues);
+    if (result) {
+      authenticate(result.token);
+      navigate("/");
+    }
+
     handleLoginFormSubmit(loginFormValues);
   };
   const handleOnChange = (e: any) => {
@@ -16,6 +26,10 @@ const LoginForm = ({ handleLoginFormSubmit }: any) => {
       return { ...preValues, [name]: value };
     });
   };
+  useEffect(() => {
+    if (isAuthenticated()) navigate("/");
+  }, []);
+
   return (
     <>
       <div
@@ -25,9 +39,9 @@ const LoginForm = ({ handleLoginFormSubmit }: any) => {
         }}
       >
         <Input
-          placeholder="Email"
+          placeholder="Username"
           type="text"
-          name="email"
+          name="userName"
           className="	border rounded-md "
           onChange={handleOnChange}
         />
