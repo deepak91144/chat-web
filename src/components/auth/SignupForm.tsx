@@ -5,8 +5,12 @@ import { useRef, useState } from "react";
 import { addNewUser } from "../../API/auth";
 import { authenticate } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
+import { uploadFile } from "../../API/fileupload";
+import ImagePreView from "../shared/image-preview/ImagePreView";
 const SignupForm = ({ handleSignupFormSubmit }: any) => {
   const navigate = useNavigate();
+  const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+  const [uploadedImageDetails, setuploadedImageDetails] = useState({});
   const [signupFormValues, setSignupFormValues] = useState({
     name: "",
     userName: "",
@@ -34,12 +38,22 @@ const SignupForm = ({ handleSignupFormSubmit }: any) => {
       return { ...preValues, [name]: value };
     });
   };
-  const handleFileChange = (e: any) => {
+  const handleFileChange = async (e: any) => {
     console.log(e.target.files);
     const fileDetails = e.target.files[0];
-    setSignupFormValues((preValues) => {
-      return { ...preValues, userPhoto: fileDetails };
-    });
+    const formData = new FormData();
+    formData.append("photo", fileDetails);
+    const result = await uploadFile(formData);
+    if (result.file) {
+      setUploadedImageUrl(result.file.location);
+      setuploadedImageDetails(result.file);
+      setSignupFormValues((preValues) => {
+        return {
+          ...preValues,
+          avatar: { public_id: result.file.key, url: result.file.location },
+        };
+      });
+    }
   };
   return (
     <>
@@ -57,17 +71,24 @@ const SignupForm = ({ handleSignupFormSubmit }: any) => {
             hidden
             ref={fileInputRef}
           />
-          <img
-            src={personImage}
-            width={60}
-            height={60}
-            alt="person image"
-            className="cursor-pointer "
-            onClick={() => {
-              fileInputRef.current.click();
-            }}
-          />
-          <div>Upload Photo</div>
+          {uploadedImageUrl ? (
+            <ImagePreView url={uploadedImageUrl} width="20" height="20" />
+          ) : (
+            <>
+              {" "}
+              <img
+                src={personImage}
+                width={60}
+                height={60}
+                alt="person image"
+                className="cursor-pointer "
+                onClick={() => {
+                  fileInputRef.current.click();
+                }}
+              />
+              <div>Upload Photo</div>
+            </>
+          )}
         </div>
         <Input
           placeholder="name"
