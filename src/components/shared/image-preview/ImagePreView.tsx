@@ -1,8 +1,18 @@
-export const ImagePreView = ({ url, width, height }: any) => {
+export const ImagePreView = ({
+  url,
+  imageWidth = 100,
+  imageHeight = 100,
+}: any) => {
   return (
     <>
-      <div>
-        <img src={url} width={20} height={20} alt="image preview" />
+      <div className=" border flex justify-center">
+        <img
+          src={url}
+          width={imageWidth}
+          height={imageHeight}
+          style={{ objectFit: "contain" }}
+          alt="image preview"
+        />
       </div>
     </>
   );
