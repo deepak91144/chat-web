@@ -10,15 +10,15 @@ import ImagePreView from "../shared/image-preview/ImagePreView";
 const SignupForm = ({ handleSignupFormSubmit }: any) => {
   const navigate = useNavigate();
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
-  const [uploadedImageDetails, setuploadedImageDetails] = useState({});
+  const [showImagepreview, setShowImagepreview] = useState(false);
   const [signupFormValues, setSignupFormValues] = useState({
     name: "",
     userName: "",
     email: "",
     password: "",
     avatar: {
-      public_id: "dewfew",
-      url: "dwefd",
+      public_id: "",
+      url: "",
     },
     userPhoto: "",
   });
@@ -46,7 +46,8 @@ const SignupForm = ({ handleSignupFormSubmit }: any) => {
     const result = await uploadFile(formData);
     if (result.file) {
       setUploadedImageUrl(result.file.location);
-      setuploadedImageDetails(result.file);
+
+      setShowImagepreview(true);
       setSignupFormValues((preValues) => {
         return {
           ...preValues,
@@ -54,6 +55,9 @@ const SignupForm = ({ handleSignupFormSubmit }: any) => {
         };
       });
     }
+  };
+  const hideImagePreview = () => {
+    fileInputRef.current.click();
   };
   return (
     <>
@@ -71,11 +75,15 @@ const SignupForm = ({ handleSignupFormSubmit }: any) => {
             hidden
             ref={fileInputRef}
           />
-          {uploadedImageUrl ? (
-            <ImagePreView url={uploadedImageUrl} width="20" height="20" />
+          {showImagepreview ? (
+            <>
+              <ImagePreView url={uploadedImageUrl} width="20" height="20" />
+              <div className="cursor-pointer " onClick={hideImagePreview}>
+                Change photo
+              </div>
+            </>
           ) : (
             <>
-              {" "}
               <img
                 src={personImage}
                 width={60}
