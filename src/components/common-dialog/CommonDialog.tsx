@@ -19,6 +19,8 @@ const CommonDialog = ({
   width,
   submitAction,
   cancelAction,
+  showFirstButton = true,
+  showSecondButton = true,
 }: any) => {
   return (
     <>
@@ -33,18 +35,27 @@ const CommonDialog = ({
         <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
         <DialogContent>{dialogContent}</DialogContent>
         <DialogActions>
-          <CommonButton
-            text={firstButtonText}
-            onClickAction={submitAction}
-            variant="contained"
-            bgColor={firstButtonBgColor}
-          />
-          <CommonButton
-            text={secondButtonText}
-            onClickAction={cancelAction}
-            variant="contained"
-            bgColor={secondButtonBgColor}
-          />
+          {showFirstButton && (
+            <>
+              <CommonButton
+                text={firstButtonText}
+                onClickAction={submitAction}
+                variant="contained"
+                bgColor={firstButtonBgColor}
+              />
+            </>
+          )}
+          {showSecondButton && (
+            <>
+              {" "}
+              <CommonButton
+                text={secondButtonText}
+                onClickAction={cancelAction}
+                variant="contained"
+                bgColor={secondButtonBgColor}
+              />
+            </>
+          )}
         </DialogActions>
       </Dialog>
     </>

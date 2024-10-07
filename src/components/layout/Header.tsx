@@ -9,11 +9,18 @@ import GroupDialog from "../specific/GroupDialog";
 import { Link, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { logout } from "../../utils/auth";
+import { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { clearChatReducer } from "../../store/slices/chatClice";
+import { clearFriendRequestReducer } from "../../store/slices/friendRequestSlice";
+import { clearUserReducer } from "../../store/slices/userSlice";
+import { removeUserId } from "../../utils/localstorage-utils";
 
 const Header = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [isGroup, setIsGroup] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSearchClick = () => {
     setIsSearch((pre) => !pre);
@@ -27,8 +34,14 @@ const Header = () => {
   const redirectToHome = () => {
     navigate("/");
   };
-  const logutUser = () => {
-    if (logout()) navigate("/login");
+
+  const logutUser = async () => {
+    logout();
+    removeUserId();
+    await dispatch(clearChatReducer());
+    await dispatch(clearFriendRequestReducer());
+    await dispatch(clearUserReducer());
+    navigate("/login");
   };
   return (
     <>
@@ -67,6 +80,17 @@ const Header = () => {
         />
       )}
       {isGroup && <GroupDialog isGroup={isGroup} setIsGroup={setIsGroup} />}
+
+      {/* global toaster */}
+      <Toaster
+        toastOptions={{
+          className: "",
+          duration: 5000,
+          success: {
+            duration: 3000,
+          },
+        }}
+      />
     </>
   );
 };

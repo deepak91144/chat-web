@@ -7,7 +7,8 @@ import { authenticate } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import { uploadFile } from "../../API/fileupload";
 import ImagePreView from "../shared/image-preview/ImagePreView";
-const SignupForm = ({ handleSignupFormSubmit }: any) => {
+import { storeUserId } from "../../utils/localstorage-utils";
+const SignupForm = () => {
   const navigate = useNavigate();
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [showImagepreview, setShowImagepreview] = useState(false);
@@ -27,10 +28,9 @@ const SignupForm = ({ handleSignupFormSubmit }: any) => {
     const res = await addNewUser(signupFormValues);
     if (res) {
       authenticate(res.token);
+      storeUserId(res.user._id);
       navigate("/");
     }
-
-    handleSignupFormSubmit(signupFormValues);
   };
   const handleOnChnage = (e: any) => {
     const { name, value } = e.target;
