@@ -2,8 +2,15 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 const GroupUserItem = (props: any) => {
-  const { name, _id, avatar, addUserToGroup, removeUserFromGroup, isAdded } =
-    props;
+  const {
+    name,
+    _id,
+    avatar,
+
+    isAdded,
+    selectUser,
+    deselectUser,
+  } = props;
 
   return (
     <>
@@ -17,7 +24,7 @@ const GroupUserItem = (props: any) => {
               <RemoveIcon
                 style={{ color: "green" }}
                 onClick={() => {
-                  removeUserFromGroup(_id);
+                  deselectUser(_id);
                 }}
               />
             </>
@@ -26,7 +33,7 @@ const GroupUserItem = (props: any) => {
               <AddIcon
                 style={{ color: "green" }}
                 onClick={() => {
-                  addUserToGroup(_id);
+                  selectUser(_id);
                 }}
               />
             </>

@@ -8,12 +8,7 @@ const Login = () => {
   const toggleLoginSignupForm = () => {
     setShowLoginForm((pre) => !pre);
   };
-  const handleSignupFormSubmit = (values: any) => {
-    console.log(values);
-  };
-  const handleLoginFormSubmit = (values: any) => {
-    console.log(values);
-  };
+
   return (
     <>
       <div className="w-screen h-screen bg-blue-300 flex justify-center items-center">
@@ -28,11 +23,7 @@ const Login = () => {
             alignItems: "center",
           }}
         >
-          {showLoginForm ? (
-            <LoginForm handleLoginFormSubmit={handleLoginFormSubmit} />
-          ) : (
-            <SignupForm handleSignupFormSubmit={handleSignupFormSubmit} />
-          )}
+          {showLoginForm ? <LoginForm /> : <SignupForm />}
 
           <div className="mt-2">OR</div>
           <p

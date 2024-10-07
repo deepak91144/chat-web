@@ -4,9 +4,13 @@ import AppLayout from "../components/layout/AppLayout";
 import { sampleData } from "../constants/sampleData";
 import Chatbox from "../components/chat/Chatbox";
 import Profile from "./Profile";
+import { useSelector } from "react-redux";
 
 const Chat = () => {
   const params = useParams();
+  const {
+    chatReducer: { chats },
+  } = useSelector((store) => store);
   const chatId = params.chatId;
   const handleDeleteChat = (e, _id, groupChat) => {
     e.preventDefault();
@@ -18,7 +22,7 @@ const Chat = () => {
         <div className="flex ">
           <div className="w-[30%] pr-2">
             <ChatList
-              chats={sampleData}
+              chats={chats}
               chatId={chatId}
               handleDeleteChat={handleDeleteChat}
             />

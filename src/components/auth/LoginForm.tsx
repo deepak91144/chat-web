@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { authenticate, isAuthenticated } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../API/auth";
+import { storeUserId } from "../../utils/localstorage-utils";
 
-const LoginForm = ({ handleLoginFormSubmit }: any) => {
+const LoginForm = () => {
   const navigate = useNavigate();
   const [loginFormValues, setLoginFormValues] = useState({
     userName: "",
@@ -15,10 +16,9 @@ const LoginForm = ({ handleLoginFormSubmit }: any) => {
     const result = await login(loginFormValues);
     if (result) {
       authenticate(result.token);
+      storeUserId(result.user._id);
       navigate("/");
     }
-
-    handleLoginFormSubmit(loginFormValues);
   };
   const handleOnChange = (e: any) => {
     const { name, value } = e.target;

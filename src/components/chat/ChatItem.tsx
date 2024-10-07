@@ -10,8 +10,9 @@ const ChatItem = ({
   groupChat = false,
   sameSender,
   isOnline,
-  newMessageAlert,
+  // newMessageAlert,
   index = 0,
+  selected,
   handleDeleteChat,
 }: any) => {
   const navigate = useNavigate();
@@ -21,16 +22,18 @@ const ChatItem = ({
   return (
     <>
       <div
-        className={`w-[100%] h-[80px] ${
-          index !== 0 && "mt-2"
-        } bg-blue-400  flex items-center cursor-pointer`}
+        className={`w-[100%] h-[80px] ${index !== 0 && "mt-2"} ${
+          selected ? "bg-green-950" : "bg-blue-400"
+        }    flex items-center cursor-pointer relative`}
         onClick={redirectToChat}
       >
         <AvatarCard avatar={avatar} />
 
-        <span className="ml-2">{name}</span>
+        <span className={`ml-2 capitalize ${selected ? "text-white" : ""}`}>
+          {name}
+        </span>
         <div className="ml-5">
-          {newMessageAlert && newMessageAlert.count + " new Message"}
+          {/* {newMessageAlert && newMessageAlert.count + " new Message"} */}
         </div>
         <div>
           {isOnline && (
@@ -39,6 +42,11 @@ const ChatItem = ({
             </>
           )}
         </div>
+        {groupChat && (
+          <>
+            <div className="absolute right-5 text-gray-300">Group Chat</div>
+          </>
+        )}
       </div>
     </>
   );

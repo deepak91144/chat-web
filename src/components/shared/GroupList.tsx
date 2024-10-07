@@ -1,6 +1,11 @@
 import GroupItem from "./GroupItem";
 
-const GroupList = ({ width = "100%", myGroups = [], chatId }: any) => {
+const GroupList = ({
+  width = "100%",
+  myGroups = [],
+  chatId,
+  selectGroup,
+}: any) => {
   return (
     <>
       <div>
@@ -8,7 +13,11 @@ const GroupList = ({ width = "100%", myGroups = [], chatId }: any) => {
           myGroups.map((group: any) => {
             return (
               <>
-                <GroupItem group={group} chatId={chatId} />
+                <GroupItem
+                  group={group}
+                  chatId={chatId}
+                  selectGroup={selectGroup}
+                />
               </>
             );
           })

@@ -1,23 +1,28 @@
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { sampleUsers } from "../../constants/sampleData";
 import UserItem from "./UserItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommonDialog from "../common-dialog/CommonDialog";
 import UserList from "./UserList";
 import EditIcon from "@mui/icons-material/Edit";
-const GroupDetails = () => {
+import { useSelector } from "react-redux";
+
+const GroupDetails = ({ updateGroupName, deleteGroup }: any) => {
   const [isEditGroup, setIsEditGroup] = useState(false);
-  const [groupName, setGroupName] = useState("groupName");
+  const [groupName, setGroupName] = useState("");
+
   const [deleteConformationDialog, setDeleteConformationDialog] =
     useState(false);
   const [addMembrDialog, setAddMembrDialog] = useState(false);
+  const {
+    chatReducer: { group },
+  } = useSelector((store) => store);
   const openDeleteConfirmationModal = () => {
     setDeleteConformationDialog(true);
   };
-  const handleConfirmDeleteGroup = () => {
-    alert("deleteing the group");
+  const handleConfirmDeleteGroup = async () => {
+    deleteGroup();
     setDeleteConformationDialog(false);
   };
 
@@ -40,13 +45,16 @@ const GroupDetails = () => {
     setIsEditGroup(true);
   };
   const editGroupName = () => {
+    updateGroupName(groupName);
     setIsEditGroup(false);
   };
   const handleOnChange = (e: any) => {
-    console.log(e.target.value);
-
     setGroupName(e.target.value);
   };
+  useEffect(() => {
+    setGroupName(group?.name);
+  }, [group]);
+
   return (
     <>
       <div className="">
@@ -54,7 +62,11 @@ const GroupDetails = () => {
           {isEditGroup ? (
             <>
               <div className="">
-                <input className="border" onChange={handleOnChange} />
+                <input
+                  className="border"
+                  value={groupName}
+                  onChange={handleOnChange}
+                />
                 <Button onClick={editGroupName}>Edit</Button>
               </div>
             </>
@@ -75,7 +87,7 @@ const GroupDetails = () => {
         <div className="h-[60vh] ">
           <div>Members</div>
           <div>
-            {sampleUsers.map((user) => {
+            {group.memberDetails?.map((user: any) => {
               return (
                 <>
                   <UserItem
