@@ -5,6 +5,7 @@ import { authenticate, isAuthenticated } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../API/auth";
 import { storeUserId } from "../../utils/localstorage-utils";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -13,6 +14,10 @@ const LoginForm = () => {
     password: "",
   });
   const handleSubmit = async () => {
+    if (loginFormValues.userName === "" || loginFormValues.password === "") {
+      toast.error("Both fields are required");
+      return;
+    }
     const result = await login(loginFormValues);
     if (result) {
       authenticate(result.token);
@@ -32,12 +37,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <div className="flex flex-col w-[80%]">
         <Input
           placeholder="Username"
           type="text"

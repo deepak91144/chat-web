@@ -4,10 +4,8 @@ import AppLayout from "../components/layout/AppLayout";
 import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchAllusers } from "../store/slices/userSlice";
-import { getAccessToken } from "../utils/localstorage-utils";
-import { addChat } from "../API/chat";
 import { fetchChats } from "../store/slices/chatClice";
+import { isMobile } from "react-device-detect";
 
 const Home = () => {
   const params = useParams();
@@ -19,7 +17,6 @@ const Home = () => {
   } = useSelector((store) => store);
   const handleDeleteChat = (e, _id, groupChat) => {
     e.preventDefault();
-    console.log("deleteChat", _id, groupChat);
   };
 
   const fetchMyChats = () => {
@@ -32,7 +29,7 @@ const Home = () => {
   return (
     <>
       <div className="min-h-[100vh] flex ">
-        <div className="w-[25%]">
+        <div className={`lg:w-[25%]  w-[100%] pl-5 pr-5`}>
           <ChatList
             chats={chats}
             chatId={chatId}
@@ -40,9 +37,16 @@ const Home = () => {
           />
         </div>
 
-        <div>
-          <Profile />
-        </div>
+        {isMobile ? (
+          <></>
+        ) : (
+          <>
+            {" "}
+            <div>
+              <Profile />
+            </div>
+          </>
+        )}
       </div>
     </>
   );

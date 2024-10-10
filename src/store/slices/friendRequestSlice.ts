@@ -9,6 +9,7 @@ import {
 
 const initialState = {
   friendRequests: [],
+  friendRequestSenderIds: [],
   friendRequestISent: [],
   friendRequestISent_receiverIds: [],
   friends: [],
@@ -39,6 +40,7 @@ export const friendRequestSlice = createSlice({
     builder.addCase(myFriendRequest.fulfilled, (state, action) => {
       state.isLoading = false;
       state.friendRequests = action.payload.friendRequests;
+      state.friendRequestSenderIds = action.payload.friendRequestSenderIds;
     });
     builder.addCase(myFriendRequest.rejected, (state, action) => {
       state.isError = true;

@@ -9,6 +9,7 @@ const GroupList = ({
   return (
     <>
       <div>
+        <div className="text-center">My Groups</div>
         {myGroups.length > 0 ? (
           myGroups.map((group: any) => {
             return (

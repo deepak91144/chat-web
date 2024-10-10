@@ -1,10 +1,9 @@
-import { sampleUsers } from "../../constants/sampleData";
 import UserItem from "./UserItem";
 
-const UserList = () => {
+const UserList = ({ users, group, selectUser }: any) => {
   return (
     <>
-      {sampleUsers.map((user) => {
+      {users.map((user: any) => {
         return (
           <>
             <UserItem
@@ -12,6 +11,8 @@ const UserList = () => {
               _id={user._id}
               avatar={user.avatar}
               handler={() => {}}
+              isMember={group.members.includes(user._id)}
+              selectUser={selectUser}
             />
           </>
         );
