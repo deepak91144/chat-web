@@ -10,6 +10,9 @@ const UserItem = (props: any) => {
     selectUser,
     friendRequestSent,
     addedAsFriend,
+    friendRequestReceived,
+    fiendRequestActionHandler,
+    isMember,
   } = props;
   return (
     <>
@@ -24,6 +27,27 @@ const UserItem = (props: any) => {
         ) : addedAsFriend ? (
           <>
             <div className="ml-5  absolute right-0">Friend</div>
+          </>
+        ) : friendRequestReceived ? (
+          <>
+            <div className="ml-5 cursor-pointer absolute right-0">
+              <span
+                className="cursor-pointer "
+                onClick={() => {
+                  fiendRequestActionHandler(_id, true);
+                }}
+              >
+                Accept
+              </span>
+              <span
+                className="ml-2 cursor-pointer"
+                onClick={() => {
+                  fiendRequestActionHandler(_id, false);
+                }}
+              >
+                Reject
+              </span>
+            </div>
           </>
         ) : (
           <>

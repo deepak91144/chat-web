@@ -20,17 +20,17 @@ const Chat = () => {
     <>
       <div className="w-screen h-screen">
         <div className="flex ">
-          <div className="w-[30%] pr-2">
+          <div className="w-[30%] hidden pr-2">
             <ChatList
               chats={chats}
               chatId={chatId}
               handleDeleteChat={handleDeleteChat}
             />
           </div>
-          <div className="w-[60%]">
+          <div className="md:w-[60%] w-[100%]">
             <Chatbox />
           </div>
-          <div className="w-[25%]">
+          <div className="w-[25%] hidden">
             <Profile />
           </div>
         </div>

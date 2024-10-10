@@ -1,3 +1,5 @@
+import { Avatar } from "@mui/material";
+
 export const ImagePreView = ({
   url,
   imageWidth = 100,
@@ -5,13 +7,14 @@ export const ImagePreView = ({
 }: any) => {
   return (
     <>
-      <div className=" border flex justify-center">
-        <img
+      <div className="flex justify-center">
+        <Avatar
           src={url}
-          width={imageWidth}
-          height={imageHeight}
-          style={{ objectFit: "contain" }}
-          alt="image preview"
+          style={{
+            objectFit: "contain",
+            width: imageWidth,
+            height: imageHeight,
+          }}
         />
       </div>
     </>

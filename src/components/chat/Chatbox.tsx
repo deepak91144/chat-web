@@ -17,7 +17,7 @@ const Chatbox = () => {
 
   return (
     <>
-      <div className="h-[92vh] border relative">
+      <div className="h-[92vh]  relative">
         <div className=" flex flex-col h-[83vh] overflow-scroll	">
           {sampleMessage.map((message, index) => {
             return (
@@ -27,31 +27,40 @@ const Chatbox = () => {
             );
           })}
         </div>
-        <div className=" w-[100%] absolute bottom-[1rem]">
-          <AttachFileIcon style={{ cursor: "pointer" }} onClick={handleClick} />
-          <Input
-            type="text"
-            style={{ width: "85%", marginLeft: "1rem" }}
-            placeholder="Type here"
-          />
-          <SendIcon
-            style={{ marginLeft: "1rem", color: "red", cursor: "pointer" }}
-          />
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={handleClose}>Image</MenuItem>
-            <MenuItem onClick={handleClose}>Video</MenuItem>
-            <MenuItem onClick={handleClose}>File</MenuItem>
-          </Menu>
+        <div className=" w-[100%] bg-slate-400 absolute flex bottom-[0] h-[5rem] justify-between items-center pl-2 pr-2">
+          <div>
+            <AttachFileIcon
+              style={{ cursor: "pointer" }}
+              onClick={handleClick}
+            />
+          </div>
+          <div className="w-[80%]">
+            <Input
+              type="text"
+              className="w-[100%] h-[100%] border-none"
+              placeholder="Type here"
+            />
+          </div>
+          <div>
+            <SendIcon
+              style={{ marginLeft: "1rem", color: "red", cursor: "pointer" }}
+            />
+          </div>
         </div>
       </div>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleClose}>Image</MenuItem>
+        <MenuItem onClick={handleClose}>Video</MenuItem>
+        <MenuItem onClick={handleClose}>File</MenuItem>
+      </Menu>
     </>
   );
 };
