@@ -6,18 +6,22 @@ import { getAccessToken, getUserId } from "../../utils/localstorage-utils";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllusers } from "../../store/slices/userSlice";
 import {
+  acceptMyFriendRequest,
   fetchMyFriends,
   friendRequestISent,
+  myFriendRequest,
 } from "../../store/slices/friendRequestSlice";
+import toast from "react-hot-toast";
+import { fetchChats } from "../../store/slices/chatClice";
 
 const SearchDialogContent = ({ selectUser }: any) => {
-  const [searchKeyword, setSearchKeyword] = useState("");
   const {
     user: { users },
     friendRequestReducer: {
       friendRequestISent_receiverIds,
       friendRequests,
       friendIds,
+      friendRequestSenderIds,
     },
   } = useSelector((state) => state);
   const [allUsers, setAllUsers] = useState([...users]);
@@ -34,28 +38,46 @@ const SearchDialogContent = ({ selectUser }: any) => {
       dispatch(friendRequestISent(userId));
     }
   };
+  const getMyFriendRequest = async () => {
+    const userId = getUserId();
+    await dispatch(myFriendRequest(userId));
+  };
   useEffect(() => {
     getUsers();
+    getMyFriendRequest();
   }, []);
   useEffect(() => {
-    // const usersList = [...users];
-    // const notFriends = usersList.filter((user: any) => {
-    //   if (!friendIds.includes(user._id)) {
-    //     return user;
-    //   }
-    // });
-
     setAllUsers(users);
   }, [users, friendRequests]);
 
   const handleSearchChange = (e: any) => {
-    setSearchKeyword(e.target.value);
     const filteredUsers = users.filter((user: any) => {
       if (user?.name.includes(e.target.value)) {
         return user;
       }
     });
     setAllUsers(filteredUsers);
+  };
+
+  const acceptFriendRequest = async (_id: string, accept: boolean) => {
+    const requestId = friendRequests.map((request: any) => {
+      return request._id;
+    });
+    const userId = getUserId();
+    const payload = {
+      requestId: requestId[0],
+      accept,
+      userId,
+    };
+    await dispatch(acceptMyFriendRequest(payload));
+    dispatch(fetchMyFriends(userId));
+    getMyFriendRequest();
+    await dispatch(fetchChats());
+    if (accept) {
+      toast.success("Hurray , you guys are friends now");
+    } else {
+      toast.error("opps , you rejected the request");
+    }
   };
 
   return (
@@ -81,10 +103,14 @@ const SearchDialogContent = ({ selectUser }: any) => {
                   avatar={user?.avatar}
                   handler={addFriendHandler}
                   selectUser={selectUser}
+                  friendRequestReceived={friendRequestSenderIds?.includes(
+                    user._id
+                  )}
                   addedAsFriend={friendIds.includes(user._id)}
                   friendRequestSent={friendRequestISent_receiverIds.includes(
                     user._id
                   )}
+                  fiendRequestActionHandler={acceptFriendRequest}
                 />
               </>
             );

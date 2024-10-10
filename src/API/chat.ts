@@ -81,3 +81,45 @@ export const deleteGroup = async (chatId: string) => {
 
   return result.data;
 };
+
+export const addMembersToAGroup = async (payload: any) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const result = await axios.put(
+    `${baseUrl}/api/v1/chat/add-members`,
+    payload,
+    config
+  );
+
+  return result.data;
+};
+
+export const removeMembersFromAGroup = async (payload: any) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const result = await axios.put(
+    `${baseUrl}/api/v1/chat/remove-member`,
+    payload,
+    config
+  );
+
+  return result.data;
+};
+
+export const getGroupDetails = async (chatId: any) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const result = await axios.get(
+    `${baseUrl}/api/v1/chat//group/${chatId}`,
+
+    config
+  );
+
+  return result.data;
+};

@@ -1,23 +1,33 @@
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import UserItem from "./UserItem";
 import { useEffect, useState } from "react";
 import CommonDialog from "../common-dialog/CommonDialog";
-import UserList from "./UserList";
 import EditIcon from "@mui/icons-material/Edit";
-import { useSelector } from "react-redux";
-
-const GroupDetails = ({ updateGroupName, deleteGroup }: any) => {
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMyFriends } from "../../store/slices/friendRequestSlice";
+import { getUserId } from "../../utils/localstorage-utils";
+import GroupUserList from "../group/GroupUserList";
+import {
+  addMembersToGroup,
+  groupDetails,
+  myGroups,
+  removeMembersFromGroup,
+} from "../../store/slices/chatClice";
+import toast from "react-hot-toast";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+const GroupDetails = ({ updateGroupName, deleteGroup, goBack }: any) => {
   const [isEditGroup, setIsEditGroup] = useState(false);
   const [groupName, setGroupName] = useState("");
-
+  const [selectedMembers, setSelectedMembers] = useState([]);
   const [deleteConformationDialog, setDeleteConformationDialog] =
     useState(false);
   const [addMembrDialog, setAddMembrDialog] = useState(false);
   const {
-    chatReducer: { group },
+    chatReducer: { group, isLoading, isError },
+    friendRequestReducer: { friends },
   } = useSelector((store) => store);
+  const dispatch = useDispatch();
   const openDeleteConfirmationModal = () => {
     setDeleteConformationDialog(true);
   };
@@ -34,8 +44,19 @@ const GroupDetails = ({ updateGroupName, deleteGroup }: any) => {
     setAddMembrDialog(true);
   };
 
-  const handleConfirmAddMember = () => {
-    alert("adding members to group");
+  const handleConfirmAddMember = async () => {
+    if (selectedMembers.length === 0) {
+      toast.error("please choose at least one member");
+      return;
+    }
+    const payload = {
+      chatId: group._id,
+      members: selectedMembers,
+    };
+    await dispatch(addMembersToGroup(payload));
+    await dispatch(groupDetails(group._id));
+    setSelectedMembers([]);
+    toast.success("member added successfully to group");
     setAddMembrDialog(false);
   };
   const handleCancelAddmember = () => {
@@ -54,11 +75,50 @@ const GroupDetails = ({ updateGroupName, deleteGroup }: any) => {
   useEffect(() => {
     setGroupName(group?.name);
   }, [group]);
+  useEffect(() => {
+    const userId = getUserId();
+    dispatch(fetchMyFriends(userId));
+  }, []);
+  const selectUser = (memebrId: string) => {
+    setSelectedMembers((prev: any) => {
+      return [...prev, memebrId];
+    });
+  };
+
+  const deSelectUser = (memberId: string) => {
+    const previousMembers = [...selectedMembers];
+    const filteredMembers = previousMembers.filter((member: any) => {
+      return member !== memberId;
+    });
+    setSelectedMembers(filteredMembers);
+  };
+  const removeUserFromGroup = async () => {
+    if (selectedMembers.length === 0) {
+      toast.error("please choose at least one member");
+      return;
+    }
+    const payload = {
+      chatId: group._id,
+      members: selectedMembers,
+    };
+    const response = await dispatch(removeMembersFromGroup(payload));
+    setSelectedMembers([]);
+    if (response.error) {
+      toast.error("Something went wrong");
+      return;
+    }
+
+    await dispatch(groupDetails(group._id));
+    toast.success("Use removed successfully");
+  };
 
   return (
     <>
-      <div className="">
-        <div className="h-[20vh] mt-5 ">
+      <div className="md:w-[100%] w-[95%]">
+        <div onClick={goBack} className="md:hidden">
+          <ArrowBackIcon />
+        </div>
+        <div className="md:h-[20vh] md:mt-5  mt-8 ">
           {isEditGroup ? (
             <>
               <div className="">
@@ -84,24 +144,26 @@ const GroupDetails = ({ updateGroupName, deleteGroup }: any) => {
             </>
           )}
         </div>
-        <div className="h-[60vh] ">
+        <div className="md:h-[60vh]  mt-5  ">
           <div>Members</div>
           <div>
-            {group.memberDetails?.map((user: any) => {
-              return (
-                <>
-                  <UserItem
-                    name={user.name}
-                    _id={user._id}
-                    avatar={user.avatar}
-                    handler={() => {}}
-                  />
-                </>
-              );
-            })}
+            <GroupUserList
+              members={group.memberDetails}
+              group={group}
+              selectUser={selectUser}
+              deSelectUser={deSelectUser}
+              selectedMembers={selectedMembers}
+              showingMembersList={true}
+            />
+            <button
+              onClick={removeUserFromGroup}
+              className="cursor-pointer mt-5 border-red-300 border w-[50%] flex justify-center items-center"
+            >
+              Remove User
+            </button>
           </div>
         </div>
-        <div className="border">
+        <div className="flex w-[100%] justify-center mt-5 ">
           <Button
             variant="outlined"
             startIcon={<DeleteIcon style={{ color: "red" }} />}
@@ -137,7 +199,15 @@ const GroupDetails = ({ updateGroupName, deleteGroup }: any) => {
             open={addMembrDialog}
             submitAction={handleConfirmAddMember}
             cancelAction={handleCancelAddmember}
-            dialogContent={<UserList />}
+            dialogContent={
+              <GroupUserList
+                members={friends}
+                group={group}
+                selectUser={selectUser}
+                deSelectUser={deSelectUser}
+                selectedMembers={selectedMembers}
+              />
+            }
             dialogTitle="Add Members"
             firstButtonText="Add"
             secondButtonText="Cancel"

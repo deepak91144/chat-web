@@ -1,5 +1,6 @@
 import axios from "axios";
 import { baseUrl } from "../constants/serverConstants";
+import { getAccessToken } from "../utils/localstorage-utils";
 
 export const addNewUser = async (user: any) => {
   const result = await axios.post(`${baseUrl}/user/addNewUser`, user);
@@ -26,6 +27,14 @@ export const getAllUsers = async (token: string) => {
     headers: { Authorization: `Bearer ${token}` },
   };
   const result = await axios.get(`${baseUrl}/user/all`, config);
+
+  return result.data;
+};
+export const updateUserDetails = async (payload: any) => {
+  const config = {
+    headers: { Authorization: `Bearer ${getAccessToken()}` },
+  };
+  const result = await axios.put(`${baseUrl}/user/update`, payload, config);
 
   return result.data;
 };

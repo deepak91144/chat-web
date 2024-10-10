@@ -1,18 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAllUsers } from "../../API/auth";
+import {
+  getAllUsers,
+  getProfileDetails,
+  updateUserDetails,
+} from "../../API/auth";
 
 const initialState = {
   isLoading: false,
   users: [],
   isError: false,
+  profile: {},
 };
 
-export const fetchAllusers = createAsyncThunk(
-  "fetchAllusers",
-  async (token: string) => {
-    return getAllUsers(token);
-  }
-);
 export const userSlice = createSlice({
   name: "counter",
   initialState,
@@ -36,8 +35,38 @@ export const userSlice = createSlice({
     builder.addCase(fetchAllusers.rejected, (state, action) => {
       state.isError = true;
     });
+
+    // fetch profile details
+    builder.addCase(fetchProfileDetails.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchProfileDetails.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.profile = action.payload.user;
+    });
+    builder.addCase(fetchProfileDetails.rejected, (state, action) => {
+      state.isError = true;
+    });
   },
 });
+export const fetchAllusers = createAsyncThunk(
+  "fetchAllusers",
+  async (token: string) => {
+    return getAllUsers(token);
+  }
+);
+export const fetchProfileDetails = createAsyncThunk(
+  "fetchProfileDetails",
+  async (token: string) => {
+    return getProfileDetails(token);
+  }
+);
+export const updateUser = createAsyncThunk(
+  "updateUser",
+  async (payload: any) => {
+    return updateUserDetails(payload);
+  }
+);
 
 export const { clearUserReducer } = userSlice.actions;
 export default userSlice.reducer;
