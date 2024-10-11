@@ -1,5 +1,6 @@
 import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
+import { Avatar } from "@mui/material";
 
 const UserItem = (props: any) => {
   const {
@@ -16,9 +17,9 @@ const UserItem = (props: any) => {
   } = props;
   return (
     <>
-      <div className="flex mt-5  relative">
-        <PersonIcon />
-        <div className="ml-2">{name}</div>
+      <div className="flex mt-5  relative items-center ">
+        <Avatar src={avatar.url} />
+        <div className="ml-2 capitalize ">{name}</div>
 
         {friendRequestSent ? (
           <>

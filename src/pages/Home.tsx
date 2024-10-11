@@ -28,8 +28,8 @@ const Home = () => {
 
   return (
     <>
-      <div className="min-h-[100vh] flex ">
-        <div className={`lg:w-[25%]  w-[100%] pl-5 pr-5`}>
+      <div className=" min-h-[81vh] flex ">
+        <div className={`md:w-[25%]  w-[100%] md:pl-0 md:pr-0 pl-5 pr-5 `}>
           <ChatList
             chats={chats}
             chatId={chatId}
@@ -37,16 +37,9 @@ const Home = () => {
           />
         </div>
 
-        {isMobile ? (
-          <></>
-        ) : (
-          <>
-            {" "}
-            <div>
-              <Profile />
-            </div>
-          </>
-        )}
+        <div className="md:block hidden">
+          <Profile />
+        </div>
       </div>
     </>
   );

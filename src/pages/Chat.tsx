@@ -30,7 +30,7 @@ const Chat = () => {
           <div className="md:w-[60%] w-[100%]">
             <Chatbox />
           </div>
-          <div className="w-[25%] hidden">
+          <div className="w-[25%] md:block hidden">
             <Profile />
           </div>
         </div>
