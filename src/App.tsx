@@ -7,7 +7,6 @@ const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const Chat = lazy(() => import("./pages/Chat"));
 const Group = lazy(() => import("./pages/Group"));
-
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 const App = () => {

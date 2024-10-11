@@ -1,4 +1,4 @@
-import { Avatar } from "@mui/material";
+import { Avatar, IconButton, Tooltip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../utils/auth";
 import { clearChatReducer } from "../../store/slices/chatClice";
@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import EditprofileDialog from "../profile/EditprofileDialog";
 import toast from "react-hot-toast";
+import { white } from "../../constants/Colors";
 
 const ProfileForMobile = () => {
   const [editProfileDialog, setEditProfileDialog] = useState(false);
@@ -69,18 +70,26 @@ const ProfileForMobile = () => {
         <div>
           <Avatar
             src={profile?.avatar?.url}
-            sx={{ width: "100%", height: 150 }}
+            sx={{ width: "100%", height: 120, borderRadius: "50%" }}
           />
         </div>
-        <div className="mt-2 text-2xl capitalize">{profile?.userName}</div>
+        <div className={`mt-2 text-2xl capitalize text-[${white}]`}>
+          {profile?.userName}
+        </div>
         <div
           className="flex justify-center mt-2 cursor-pointer"
           onClick={openEditProfileDialog}
         >
-          <div>Edit </div>
-          <EditIcon />
+          <Tooltip title="Update Profile">
+            <IconButton>
+              <EditIcon sx={{ color: white }} />
+            </IconButton>
+          </Tooltip>
         </div>
-        <div className="mt-5 text-2xl cursor-pointer" onClick={logOutUser}>
+        <div
+          className={`mt-5 text-2xl cursor-pointer text-white`}
+          onClick={logOutUser}
+        >
           Logout
         </div>
       </div>

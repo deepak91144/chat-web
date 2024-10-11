@@ -9,7 +9,7 @@ const GroupList = ({
   return (
     <>
       <div>
-        <div className="text-center">My Groups</div>
+        <div className="md:hidden text-center">My Groups</div>
         {myGroups.length > 0 ? (
           myGroups.map((group: any) => {
             return (
@@ -24,7 +24,7 @@ const GroupList = ({
           })
         ) : (
           <>
-            <div>No Groups Found</div>
+            <div className="absolute top-[50%] left-[40%]">No Groups Found</div>
           </>
         )}
       </div>
