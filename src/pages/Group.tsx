@@ -12,8 +12,7 @@ import {
   myGroups,
   groupDetails,
 } from "../store/slices/chatClice";
-import toast, { Toaster } from "react-hot-toast";
-import { isMobile } from "react-device-detect";
+import toast from "react-hot-toast";
 
 const Group = () => {
   const [searchParams] = useSearchParams();
@@ -33,11 +32,12 @@ const Group = () => {
   useEffect(() => {
     clearGroupDetails();
     fetchMyGroups();
+    return () => {
+      dispatch(clearGroup());
+    };
   }, []);
   const selectGroup = (group: any) => {
-    if (isMobile) {
-      setIsGroupActive(true);
-    }
+    setIsGroupActive(true);
 
     dispatch(groupDetails(group._id));
   };
@@ -60,15 +60,17 @@ const Group = () => {
     navigate("/groups");
   };
   const goBack = () => {
+    dispatch(clearGroup());
     navigate("/groups");
     setIsGroupActive(false);
   };
   return (
     <>
-      <div className="flex w-screen h-screen mt-5">
+      <div className="flex w-screen md:min-h-[81vh] min-h-[100vh] ">
         <div
-          className="md:w-[30%] w-[100%] md:pl-0 md:pr-0 pl-5 pr-5  "
-          style={{ display: isGroupActive ? "none" : "" }}
+          className={`md:w-[25%] w-[100%] md:pl-0 md:pr-0 pl-5 pr-5 md:block ${
+            isGroupActive && "hidden"
+          }`}
         >
           <GroupList
             myGroups={groups}
@@ -78,7 +80,7 @@ const Group = () => {
         </div>
         {Object.keys(group).length > 0 && isGroupActive && (
           <>
-            <div className="md:w-[50%] w-[100%]   flex flex-col items-center">
+            <div className="md:w-[30%] md:pl-12 ml-0 w-[100%] flex flex-col items-center">
               <GroupDetails
                 updateGroupName={updateGroupName}
                 deleteGroup={deleteGroup}

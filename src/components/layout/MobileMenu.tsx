@@ -2,16 +2,20 @@ import { Drawer } from "@mui/material";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import AddIcon from "@mui/icons-material/Add";
 import MobileMenuItem from "./MobileMenuItem";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchDialog from "../specific/SearchDialog";
 import { Toaster } from "react-hot-toast";
 import NotificationDialog from "../specific/NotificationDialog";
+import GroupDialog from "../specific/GroupDialog";
+import { white } from "../../constants/Colors";
 
 const MobileMenu = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  const [isGroup, setIsGroup] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
 
   const navigate = useNavigate();
@@ -28,26 +32,36 @@ const MobileMenu = () => {
   const openNotificationDialog = () => {
     setIsNotification(true);
   };
+  const openCreateGroupDialog = () => {
+    setIsGroup(true);
+  };
   return (
     <>
-      <div className="bg-red-400 flex fixed top-0 w-screen h-[3rem] items-center justify-between  z-40 p-5">
+      <div className="bg-[#106DBE] flex md:hidden fixed top-0 w-screen h-[3rem] items-center justify-between  z-40 p-5">
         <button
           onClick={() => {
             setOpenMenu(true);
           }}
           className=""
         >
-          <MenuIcon />
+          <MenuIcon sx={{ color: white }} />
         </button>
-        <div className="text-2xl" onClick={takeToHome}>
+        <div
+          className={`text-2xl cursor-pointer text-white font-extrabold  `}
+          onClick={takeToHome}
+        >
           Chat APP
         </div>
         <div className="flex">
-          <div className="mr-2" onClick={openNotificationDialog}>
-            <NotificationsIcon />
+          <div className="mr-2 cursor-pointer" onClick={openCreateGroupDialog}>
+            <AddIcon sx={{ color: white }} />
           </div>
-          <div onClick={openSearchDialog}>
-            <SearchIcon />
+
+          <div className="mr-2 cursor-pointer" onClick={openNotificationDialog}>
+            <NotificationsIcon sx={{ color: white }} />
+          </div>
+          <div onClick={openSearchDialog} className="cursor-pointer ">
+            <SearchIcon sx={{ color: white }} />
           </div>
         </div>
       </div>
@@ -62,6 +76,8 @@ const MobileMenu = () => {
           setIsNotification={setIsNotification}
         />
       )}
+      {isGroup && <GroupDialog isGroup={isGroup} setIsGroup={setIsGroup} />}
+
       <Toaster
         toastOptions={{
           className: "",

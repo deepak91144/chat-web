@@ -9,6 +9,8 @@ import EditprofileDialog from "../components/profile/EditprofileDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfileDetails, updateUser } from "../store/slices/userSlice";
 import toast from "react-hot-toast";
+import { white } from "../constants/Colors";
+import { IconButton, Tooltip } from "@mui/material";
 const Profile = () => {
   const [editProfileDialog, setEditProfileDialog] = useState(false);
 
@@ -50,7 +52,7 @@ const Profile = () => {
   };
   return (
     <>
-      <div className="fixed right-0 top-16 w-[15%]  bg-blue-400 h-screen ">
+      <div className="fixed right-0 top-[22%] rounded-[8px] w-[15%]  bg-blue-400 h-[60%] ">
         <div className="flex flex-col p-10 mt-10  text-center">
           <div className="flex justify-center">
             <AvatarCard
@@ -63,34 +65,36 @@ const Profile = () => {
             className="flex mt-5 justify-center items-center cursor-pointer"
             onClick={openEditProfielDialog}
           >
-            <div>Edit</div>
             <div>
-              <EditIcon />
+              <Tooltip title="Update User">
+                <IconButton>
+                  <EditIcon sx={{ color: white }} />
+                </IconButton>
+              </Tooltip>
             </div>
           </div>
-          <div className="mt-5">
-            <div className="font-serif text-[1.4rem]">this is my bio</div>
-            <div className="font-serif text-[1rem] text-gray-700">Bio</div>
-          </div>
+
           <div className="mt-5 flex flex-col  text-center ">
-            <div className="font-serif text-[1.4rem] text-center">
+            <div
+              className={`font-serif text-[1.4rem] text-center text-[${white}]`}
+            >
               {profile?.userName}
             </div>
             <div className="flex justify-center mt-1">
-              <Person4Icon style={{ width: 20 }} />
+              <Person4Icon style={{ width: 20 }} sx={{ color: white }} />
 
-              <div className="font-serif text-[1rem] text-gray-700 ml-2">
+              <div className={`font-serif text-[1rem]  ml-2 text-[${white}]`}>
                 Username
               </div>
             </div>
           </div>
           <div className="mt-5">
-            <div className="font-serif text-[1.4rem]">
+            <div className={`font-serif text-[1.4rem] text-[${white}]`}>
               {dateDifference(profile?.createdAt, new Date())}
             </div>
             <div className="flex justify-center mt-1">
-              <CalendarMonthIcon style={{ width: 20 }} />
-              <div className="font-serif text-[1rem] text-gray-700 ml-2">
+              <CalendarMonthIcon sx={{ color: white, width: 20 }} />
+              <div className={`font-serif text-[1rem]  ml-2 text-[${white}]`}>
                 Joined
               </div>
             </div>

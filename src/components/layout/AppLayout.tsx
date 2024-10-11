@@ -3,32 +3,28 @@ import Title from "../shared/Title";
 import Footer from "./Footer";
 import Header from "./Header";
 import MobileMenu from "./MobileMenu";
+import { primary } from "../../constants/Colors";
 
 const AppLayout = () => (WrapedComponent: any) => {
   return (props: any) => {
     return (
       <>
-        <Title />
-        {isMobile ? (
-          <>
-            <>
-              <MobileMenu />
-            </>
-          </>
-        ) : (
-          <>
-            <Header />
-          </>
-        )}
+        <div className={`bg-[${primary}]`}>
+          <Title />
 
-        <div className="relative top-16">
-          <WrapedComponent {...props} />
+          <MobileMenu />
+
+          <Header />
+
+          <div className="md:mt-20 mt-12">
+            <WrapedComponent {...props} />
+          </div>
+          {!isMobile && (
+            <>
+              <Footer />
+            </>
+          )}
         </div>
-        {!isMobile && (
-          <>
-            <Footer />
-          </>
-        )}
       </>
     );
   };

@@ -1,6 +1,8 @@
 import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { Avatar } from "@mui/material";
+import { white } from "../../constants/Colors";
 const GroupuserItem = ({
   member,
   selectUser,
@@ -12,10 +14,9 @@ const GroupuserItem = ({
     <>
       {showingMembersList ? (
         <>
-          {" "}
-          <div className="flex mt-5  relative">
-            <PersonIcon />
-            <div>{member.name}</div>
+          <div className="flex mt-5  relative items-center">
+            <Avatar src={member.avatar.url} />
+            <div className={`ml-2 text-[${white}]`}>{member.name}</div>
 
             {isSelected ? (
               <>
@@ -25,7 +26,7 @@ const GroupuserItem = ({
                     deSelectUser(member._id);
                   }}
                 >
-                  <AddIcon color="success" />
+                  <AddIcon color="success" sx={{ color: white }} />
                 </span>
               </>
             ) : (
@@ -36,7 +37,7 @@ const GroupuserItem = ({
                     selectUser(member._id);
                   }}
                 >
-                  <RemoveIcon />
+                  <RemoveIcon sx={{ color: white }} />
                 </span>
               </>
             )}
@@ -45,9 +46,9 @@ const GroupuserItem = ({
       ) : (
         <>
           {" "}
-          <div className="flex mt-5  relative">
-            <PersonIcon />
-            <div>{member.name}</div>
+          <div className="flex mt-5  relative items-center">
+            <Avatar src={member.avatar.url} />
+            <div className="ml-2">{member.name}</div>
 
             {isSelected ? (
               <>
@@ -57,7 +58,7 @@ const GroupuserItem = ({
                     deSelectUser(member._id);
                   }}
                 >
-                  <RemoveIcon />
+                  <RemoveIcon sx={{ color: white }} />
                 </span>
               </>
             ) : (
@@ -68,7 +69,7 @@ const GroupuserItem = ({
                     selectUser(member._id);
                   }}
                 >
-                  <AddIcon color="success" />
+                  <AddIcon color="success" sx={{ color: white }} />
                 </span>
               </>
             )}

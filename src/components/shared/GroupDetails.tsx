@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
@@ -16,6 +16,7 @@ import {
 } from "../../store/slices/chatClice";
 import toast from "react-hot-toast";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { white } from "../../constants/Colors";
 const GroupDetails = ({ updateGroupName, deleteGroup, goBack }: any) => {
   const [isEditGroup, setIsEditGroup] = useState(false);
   const [groupName, setGroupName] = useState("");
@@ -115,8 +116,8 @@ const GroupDetails = ({ updateGroupName, deleteGroup, goBack }: any) => {
   return (
     <>
       <div className="md:w-[100%] w-[95%]">
-        <div onClick={goBack} className="md:hidden">
-          <ArrowBackIcon />
+        <div onClick={goBack} className="md:hidden cursor-pointer">
+          <ArrowBackIcon sx={{ color: white }} />
         </div>
         <div className="md:h-[20vh] md:mt-5  mt-8 ">
           {isEditGroup ? (
@@ -127,25 +128,33 @@ const GroupDetails = ({ updateGroupName, deleteGroup, goBack }: any) => {
                   value={groupName}
                   onChange={handleOnChange}
                 />
-                <Button onClick={editGroupName}>Edit</Button>
+                <Button onClick={editGroupName} sx={{ color: white }}>
+                  Update
+                </Button>
               </div>
             </>
           ) : (
             <>
               <div>
-                <span className="text-lg capitalize"> {groupName}</span>
+                <span className={`text-lg capitalize text-[${white}]`}>
+                  {groupName}
+                </span>
                 <span
                   onClick={handleEditIconClick}
                   className="cursor-pointer ml-3"
                 >
-                  <EditIcon />
+                  <Tooltip title="Update Group Name">
+                    <IconButton>
+                      <EditIcon sx={{ color: white }} />
+                    </IconButton>
+                  </Tooltip>
                 </span>
               </div>
             </>
           )}
         </div>
-        <div className="md:h-[60vh]  mt-5  ">
-          <div>Members</div>
+        <div className="md:h-[50vh]  mt-5  ">
+          <div className={`text-[${white}]`}>Members</div>
           <div>
             <GroupUserList
               members={group.memberDetails}
@@ -157,25 +166,27 @@ const GroupDetails = ({ updateGroupName, deleteGroup, goBack }: any) => {
             />
             <button
               onClick={removeUserFromGroup}
-              className="cursor-pointer mt-5 border-red-300 border w-[50%] flex justify-center items-center"
+              className={`cursor-pointer mt-5   w-[50%] flex justify-center items-center text-[${white}]`}
             >
               Remove User
             </button>
           </div>
         </div>
-        <div className="flex w-[100%] justify-center mt-5 ">
+        <div className="flex w-[100%] justify-center md:mt-0 mt-5 ">
           <Button
             variant="outlined"
-            startIcon={<DeleteIcon style={{ color: "red" }} />}
+            startIcon={<DeleteIcon sx={{ color: white }} />}
             onClick={openDeleteConfirmationModal}
+            sx={{ color: white }}
           >
             Delete Group
           </Button>
           <Button
             variant="outlined"
-            startIcon={<AddIcon style={{ color: "green" }} />}
+            startIcon={<AddIcon sx={{ color: white }} />}
             style={{ marginLeft: "1rem" }}
             onClick={openAddMemberDialog}
+            sx={{ color: white }}
           >
             Add members
           </Button>

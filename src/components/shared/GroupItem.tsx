@@ -10,7 +10,7 @@ const GroupItem = ({ group, chatId, selectGroup }: any) => {
   return (
     <>
       <div
-        className="flex mt-2 bg-blue-500 cursor-pointer  justify-between items-center p-5"
+        className="flex mt-2 bg-blue-400 cursor-pointer  justify-between rounded-[8px] items-center p-2"
         onClick={() => {
           selectGroup(group);
           showGroupDetails(_id);
