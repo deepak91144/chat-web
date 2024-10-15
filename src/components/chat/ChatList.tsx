@@ -31,6 +31,7 @@ const ChatList = ({
               <>
                 <ChatItem
                   // newMessageAlert={newMessageAlert}
+                  chat={chat}
                   isOnline={isOnline}
                   avatar={avatar}
                   selected={chatId.toString() === _id.toString()}

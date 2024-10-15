@@ -18,7 +18,7 @@ const Chat = () => {
   };
   return (
     <>
-      <div className="w-screen h-screen">
+      <div className="w-screen ">
         <div className="flex ">
           <div className="w-[30%] hidden pr-2">
             <ChatList

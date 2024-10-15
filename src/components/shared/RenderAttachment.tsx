@@ -6,7 +6,14 @@ const RenderAttachment = (file: any, url: string) => {
       return <video src={url} preload="none" width={200} controls />;
 
     case "image":
-      return <img src={url} width={200} alt=" chat image" />;
+      return (
+        <img
+          src={url}
+          className="rounded-[8px]"
+          width={200}
+          alt=" chat image"
+        />
+      );
 
     case "audio":
       return <audio src={url} preload="none" controls />;

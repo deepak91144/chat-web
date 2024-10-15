@@ -5,7 +5,6 @@ import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchChats } from "../store/slices/chatClice";
-import { isMobile } from "react-device-detect";
 
 const Home = () => {
   const params = useParams();
