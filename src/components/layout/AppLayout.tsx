@@ -9,14 +9,14 @@ const AppLayout = () => (WrapedComponent: any) => {
   return (props: any) => {
     return (
       <>
-        <div className={`bg-[${primary}]`}>
+        <div>
           <Title />
 
           <MobileMenu />
 
           <Header />
 
-          <div className="md:mt-20 mt-12">
+          <div className={`md:mt-20 mt-12 bg-[${primary}]`}>
             <WrapedComponent {...props} />
           </div>
           {!isMobile && (

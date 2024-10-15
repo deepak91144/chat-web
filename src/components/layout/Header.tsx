@@ -2,7 +2,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import GroupIcon from "@mui/icons-material/Group";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchDialog from "../specific/SearchDialog";
 import NotificationDialog from "../specific/NotificationDialog";
 import GroupDialog from "../specific/GroupDialog";
@@ -10,11 +10,14 @@ import { Link, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { logout } from "../../utils/auth";
 import { Toaster } from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearChatReducer } from "../../store/slices/chatClice";
-import { clearFriendRequestReducer } from "../../store/slices/friendRequestSlice";
+import {
+  clearFriendRequestReducer,
+  myFriendRequest,
+} from "../../store/slices/friendRequestSlice";
 import { clearUserReducer } from "../../store/slices/userSlice";
-import { removeUserId } from "../../utils/localstorage-utils";
+import { getUserId, removeUserId } from "../../utils/localstorage-utils";
 import { IconButton, Tooltip } from "@mui/material";
 import { white } from "../../constants/Colors";
 
@@ -24,6 +27,10 @@ const Header = () => {
   const [isNotification, setIsNotification] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {
+    user: { users },
+    friendRequestReducer: { friendRequests },
+  } = useSelector((state) => state);
   const handleSearchClick = () => {
     setIsSearch((pre) => !pre);
   };
@@ -36,6 +43,13 @@ const Header = () => {
   const redirectToHome = () => {
     navigate("/");
   };
+  const fetchFrindRequests = async () => {
+    const receiver = getUserId();
+    await dispatch(myFriendRequest(receiver));
+  };
+  useEffect(() => {
+    fetchFrindRequests();
+  }, []);
 
   const logutUser = async () => {
     logout();
@@ -76,9 +90,12 @@ const Header = () => {
               </IconButton>
             </Tooltip>
           </Link>
-          <span className=" cursor-pointer" onClick={handleNotificationClick}>
+          <span className=" cursor-pointer  " onClick={handleNotificationClick}>
             <Tooltip title="Notification">
               <IconButton>
+                <span className="absolute top-0 left-5  bg-red-400 rounded-full w-[20px] h-[20px] text-sm flex justify-center items-center  ">
+                  {friendRequests?.length}
+                </span>
                 <NotificationsIcon sx={{ color: white }} />
               </IconButton>
             </Tooltip>
