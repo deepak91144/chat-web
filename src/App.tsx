@@ -9,6 +9,7 @@ const Chat = lazy(() => import("./pages/Chat"));
 const Group = lazy(() => import("./pages/Group"));
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+
 const App = () => {
   return (
     <>
@@ -19,7 +20,7 @@ const App = () => {
               <Route element={<PrivateRoutes />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/chat/:chatId" element={<Chat />} />
-                <Route path="/groups" element={<Group />} />
+                <Route path="/groups" element={<Group />} />\
               </Route>
 
               <Route path="/login" element={<Login />} />

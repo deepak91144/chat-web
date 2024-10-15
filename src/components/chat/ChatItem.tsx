@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import AvatarCard from "../shared/AvatarCard";
 import { white } from "../../constants/Colors";
 import GroupIcon from "@mui/icons-material/Group";
+import { useDispatch } from "react-redux";
+import { setChatDetails } from "../../store/slices/chatClice";
 const ChatItem = ({
   avatar,
   name,
@@ -14,9 +16,12 @@ const ChatItem = ({
   index = 0,
   selected,
   handleDeleteChat,
+  chat,
 }: any) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const redirectToChat = () => {
+    dispatch(setChatDetails(chat));
     navigate(`/chat/${_id}`);
   };
   return (

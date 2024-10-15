@@ -12,6 +12,7 @@ import {
 
 const initialState = {
   chats: [],
+  chat: {},
   groups: [],
   group: {},
   isLoading: false,
@@ -25,6 +26,9 @@ export const chatSlice = createSlice({
   reducers: {
     clearGroup: (state, action) => {
       state.group = {};
+    },
+    setChatDetails: (state, action) => {
+      state.chat = action.payload;
     },
     clearChatReducer: (state, action) => {
       state.chats = [];
@@ -126,5 +130,6 @@ export const groupDetails = createAsyncThunk("groupDetails", async (chatId) => {
   return getGroupDetails(chatId);
 });
 
-export const { clearGroup, clearChatReducer } = chatSlice.actions;
+export const { clearGroup, clearChatReducer, setChatDetails } =
+  chatSlice.actions;
 export default chatSlice.reducer;
