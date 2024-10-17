@@ -1,7 +1,8 @@
 import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { Avatar } from "@mui/material";
+import { Avatar, IconButton, Tooltip } from "@mui/material";
+import { primary } from "../../constants/Colors";
 const GroupUserItem = (props: any) => {
   const {
     name,
@@ -22,21 +23,29 @@ const GroupUserItem = (props: any) => {
         <span className="ml-5 cursor-pointer absolute right-0">
           {isAdded ? (
             <>
-              <RemoveIcon
-                style={{ color: "green" }}
-                onClick={() => {
-                  deselectUser(_id);
-                }}
-              />
+              <Tooltip title="remove from  group">
+                <IconButton>
+                  <RemoveIcon
+                    sx={{ color: "red" }}
+                    onClick={() => {
+                      deselectUser(_id);
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
             </>
           ) : (
             <>
-              <AddIcon
-                style={{ color: "green" }}
-                onClick={() => {
-                  selectUser(_id);
-                }}
-              />
+              <Tooltip title="Add to group">
+                <IconButton>
+                  <AddIcon
+                    sx={{ color: primary }}
+                    onClick={() => {
+                      selectUser(_id);
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
             </>
           )}
         </span>

@@ -3,19 +3,22 @@ import SendIcon from "@mui/icons-material/Send";
 import { Input, Menu, MenuItem } from "@mui/material";
 import MessageBox from "./MessageBox";
 import io from "socket.io-client";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMessagesByChatId } from "../../store/slices/messageSlice";
+import {
+  clearMessageAlertOfAChat,
+  fetchMessagesByChatId,
+} from "../../store/slices/messageSlice";
 import FileUpload from "../file-upload/FileUpload";
-import { clearFiles, uploadFiles } from "../../store/slices/uploadFileSlice";
 import { uploadFile } from "../../API/fileupload";
+import { setLoading, uploadFiles } from "../../store/slices/uploadFileSlice";
 const socket = io.connect("http://localhost:8000");
 
 const Chatbox = () => {
   const [message, setMessage] = useState("");
   const [allMsg, setAllMsg] = useState([]);
-  const [fileType, setFileType] = useState();
+  const [fileType, setFileType] = useState("");
   const fileInputRef = useRef(null);
   const scrollToBottomRef = useRef(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -23,7 +26,7 @@ const Chatbox = () => {
   const {
     user: { profile },
     chatReducer: { chat },
-    messageReducer: { messages },
+    messageReducer: { messages, newMessageAlerts },
     fileReducer: { files, isLoading },
   } = useSelector((store) => store);
   const dispatch = useDispatch();
@@ -40,7 +43,6 @@ const Chatbox = () => {
   useEffect(() => {
     dispatch(fetchMessagesByChatId(chatId));
   }, []);
-
   useEffect(() => {
     const paylaod = {
       roomId: chatId,
@@ -52,16 +54,19 @@ const Chatbox = () => {
 
     socket.emit("joinRoom", paylaod);
 
-    socket.on("userJoined", (payload: any) => {});
-
     socket.on("rcvMsg", (payload: any) => {
-      console.log("payload_", payload);
-
       setAllMsg((prev: any) => {
         return [...prev, payload.message];
       });
     });
   }, []);
+
+  useEffect(() => {
+    dispatch(clearMessageAlertOfAChat(chatId));
+    return () => {
+      dispatch(clearMessageAlertOfAChat(chatId));
+    };
+  }, [chatId]);
 
   useEffect(() => {
     scrollToBottomRef?.current?.scrollIntoView({
@@ -105,7 +110,9 @@ const Chatbox = () => {
 
   const selectFile = (type: string) => {
     setFileType(type);
-    fileInputRef.current.click();
+    setTimeout(() => {
+      fileInputRef.current.click();
+    }, 500);
   };
 
   const handleFileOnChange = async (e: any) => {
@@ -113,12 +120,13 @@ const Chatbox = () => {
     const fileDetails = e.target.files[0];
     const formData = new FormData();
     formData.append("photo", fileDetails);
-    // const result = await dispatch(uploadFiles(formData));
+    dispatch(setLoading(true));
     const result = await uploadFile(formData);
 
     console.log("result", result);
 
     if (result?.success) {
+      dispatch(setLoading(false));
       handleSend(result.file);
     }
   };
@@ -150,6 +158,9 @@ const Chatbox = () => {
               style={{ cursor: "pointer" }}
               onClick={handleClick}
             />
+          </div>
+          <div className="fixed z-0 bottom-12 left-[42%] text-white">
+            {isLoading && "Sending..."}
           </div>
           <div className="w-[80%]  bottom-0">
             <Input
@@ -190,6 +201,13 @@ const Chatbox = () => {
         </MenuItem>
         <MenuItem
           onClick={() => {
+            selectFile("audio");
+          }}
+        >
+          Audio
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
             selectFile("video");
           }}
         >
@@ -202,11 +220,42 @@ const Chatbox = () => {
         >
           File
         </MenuItem>
-        <FileUpload
-          type={fileType}
-          fileInputRef={fileInputRef}
-          handleFileOnChange={handleFileOnChange}
-        />
+        {fileType === "image" && (
+          <>
+            <FileUpload
+              accept="image/*"
+              fileInputRef={fileInputRef}
+              handleFileOnChange={handleFileOnChange}
+            />
+          </>
+        )}
+        {fileType === "video" && (
+          <>
+            <FileUpload
+              accept="video/*"
+              fileInputRef={fileInputRef}
+              handleFileOnChange={handleFileOnChange}
+            />
+          </>
+        )}
+        {fileType === "audio" && (
+          <>
+            <FileUpload
+              accept="audio/mpeg3"
+              fileInputRef={fileInputRef}
+              handleFileOnChange={handleFileOnChange}
+            />
+          </>
+        )}
+        {fileType === "file" && (
+          <>
+            <FileUpload
+              accept="file"
+              fileInputRef={fileInputRef}
+              handleFileOnChange={handleFileOnChange}
+            />
+          </>
+        )}
       </Menu>
     </>
   );

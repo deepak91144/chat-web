@@ -19,10 +19,13 @@ const LoginForm = () => {
       return;
     }
     const result = await login(loginFormValues);
-    if (result) {
+
+    if (result.success) {
       authenticate(result.token);
       storeUserId(result.user._id);
       navigate("/");
+    } else {
+      toast.error(result?.message);
     }
   };
   const handleOnChange = (e: any) => {

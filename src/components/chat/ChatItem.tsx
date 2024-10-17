@@ -12,7 +12,7 @@ const ChatItem = ({
   groupChat = false,
   sameSender,
   isOnline,
-  // newMessageAlert,
+  newMessageAlert,
   index = 0,
   selected,
   handleDeleteChat,
@@ -35,14 +35,16 @@ const ChatItem = ({
         <AvatarCard avatar={avatar} />
 
         <span
-          className={`ml-2 capitalize ${
+          className={`ml-2 capitalize  ${
             selected ? "text-white" : `text-[${white}]`
           }`}
         >
           {name}
         </span>
         <div className="ml-5">
-          {/* {newMessageAlert && newMessageAlert.count + " new Message"} */}
+          {newMessageAlert &&
+            sameSender &&
+            newMessageAlert.count + " new Message"}
         </div>
         <div>
           {isOnline && (

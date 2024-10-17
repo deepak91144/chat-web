@@ -9,9 +9,12 @@ export const addNewUser = async (user: any) => {
 };
 
 export const login = async (user: any) => {
-  const result = await axios.post(`${baseUrl}/user/login`, user);
-
-  return result.data;
+  try {
+    const result = await axios.post(`${baseUrl}/user/login`, user);
+    return result.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 export const getProfileDetails = async (token: string) => {
   const config = {

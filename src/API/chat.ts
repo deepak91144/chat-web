@@ -116,7 +116,21 @@ export const getGroupDetails = async (chatId: any) => {
   };
 
   const result = await axios.get(
-    `${baseUrl}/api/v1/chat//group/${chatId}`,
+    `${baseUrl}/api/v1/chat/group/${chatId}`,
+
+    config
+  );
+
+  return result.data;
+};
+
+export const putLatestChatOnTopOfList = async (chatId: any) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const result = await axios.put(
+    `${baseUrl}/api/v1/chat/re-arrange/${chatId}`,
 
     config
   );
