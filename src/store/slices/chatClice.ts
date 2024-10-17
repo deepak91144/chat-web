@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   addMembersToAGroup,
@@ -6,6 +7,7 @@ import {
   fetchAllChats,
   getGroupDetails,
   getMyGroups,
+  putLatestChatOnTopOfList,
   removeMembersFromAGroup,
   renameGroup,
 } from "../../API/chat";
@@ -36,6 +38,16 @@ export const chatSlice = createSlice({
       state.group = {};
       state.isLoading = false;
       state.isError = false;
+    },
+    reArrangeTheChats: (state, action) => {
+      const oldChats = [...state.chats];
+      const result = oldChats.filter((chat) => {
+        if (action.payload === chat._id) {
+          return chat;
+        }
+      });
+      oldChats.unshift(result[0]);
+      state.chats = _.uniqBy(oldChats, "_id");
     },
   },
   extraReducers: (builder) => {
@@ -130,6 +142,17 @@ export const groupDetails = createAsyncThunk("groupDetails", async (chatId) => {
   return getGroupDetails(chatId);
 });
 
-export const { clearGroup, clearChatReducer, setChatDetails } =
-  chatSlice.actions;
+export const putLatestChatOnTop = createAsyncThunk(
+  "groupDetails",
+  async (chatId) => {
+    return putLatestChatOnTopOfList(chatId);
+  }
+);
+
+export const {
+  clearGroup,
+  clearChatReducer,
+  setChatDetails,
+  reArrangeTheChats,
+} = chatSlice.actions;
 export default chatSlice.reducer;

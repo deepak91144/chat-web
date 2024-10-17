@@ -93,9 +93,12 @@ const Header = () => {
           <span className=" cursor-pointer  " onClick={handleNotificationClick}>
             <Tooltip title="Notification">
               <IconButton>
-                <span className="absolute top-0 left-5  bg-red-400 rounded-full w-[20px] h-[20px] text-sm flex justify-center items-center  ">
-                  {friendRequests?.length}
-                </span>
+                {friendRequests?.length > 0 && (
+                  <span className="absolute top-0 left-5  bg-red-400 rounded-full w-[20px] h-[20px] text-sm flex justify-center items-center  ">
+                    {friendRequests?.length}
+                  </span>
+                )}
+
                 <NotificationsIcon sx={{ color: white }} />
               </IconButton>
             </Tooltip>

@@ -1,6 +1,8 @@
-import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
-import { Avatar } from "@mui/material";
+import DoneIcon from "@mui/icons-material/Done";
+import { Avatar, IconButton, Tooltip } from "@mui/material";
+import ChatIcon from "@mui/icons-material/Chat";
+import { primary } from "../../constants/Colors";
 
 const UserItem = (props: any) => {
   const {
@@ -23,11 +25,24 @@ const UserItem = (props: any) => {
 
         {friendRequestSent ? (
           <>
-            <div className="ml-5  absolute right-0 ">Request Sent</div>
+            <div className="ml-5  absolute right-0 ">
+              {" "}
+              <Tooltip title="Request already sent">
+                <IconButton sx={{ color: primary }}>
+                  <DoneIcon />
+                </IconButton>
+              </Tooltip>
+            </div>
           </>
         ) : addedAsFriend ? (
           <>
-            <div className="ml-5  absolute right-0">Friend</div>
+            <div className="ml-5  absolute right-0">
+              <Tooltip title="Chat">
+                <IconButton>
+                  <ChatIcon sx={{ color: primary }} />
+                </IconButton>
+              </Tooltip>
+            </div>
           </>
         ) : friendRequestReceived ? (
           <>
@@ -58,7 +73,11 @@ const UserItem = (props: any) => {
                 selectUser(_id);
               }}
             >
-              <AddIcon color="success" />
+              <Tooltip title="Send friend request">
+                <IconButton>
+                  <AddIcon sx={{ color: primary }} />
+                </IconButton>
+              </Tooltip>
             </span>
           </>
         )}

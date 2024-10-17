@@ -23,14 +23,7 @@ const SignupForm = ({ editProfile = false, handleSubmit }: any) => {
   const {
     user: { profile },
   } = useSelector((store) => store);
-  // const handleSubmit = async () => {
-  //   const res = await addNewUser(signupFormValues);
-  //   if (res) {
-  //     authenticate(res.token);
-  //     storeUserId(res.user._id);
-  //     navigate("/");
-  //   }
-  // };
+
   const handleOnChnage = (e: any) => {
     const { name, value } = e.target;
     setSignupFormValues((preValues) => {
@@ -104,6 +97,7 @@ const SignupForm = ({ editProfile = false, handleSubmit }: any) => {
           ) : (
             <>
               <img
+                loading="lazy"
                 src={personImage}
                 width={60}
                 height={60}
