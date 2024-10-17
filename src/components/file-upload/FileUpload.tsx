@@ -1,24 +1,14 @@
 import { useEffect, useState } from "react";
 
 const FileUpload = (props: any) => {
-  const { fileInputRef, handleFileOnChange, type = "" } = props;
-  const [aceept, setAceept] = useState("");
-
-  useEffect(() => {
-    if (type == "image") {
-      setAceept("image/*");
-    }
-    if (type == "video") {
-      setAceept("video/*");
-    }
-  }, [type]);
+  const { fileInputRef, handleFileOnChange, accept = "" } = props;
 
   return (
     <>
       <div>
         <input
           type="file"
-          //   accept={aceept}
+          accept={accept}
           ref={fileInputRef}
           hidden
           onChange={(e) => {

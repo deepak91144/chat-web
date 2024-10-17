@@ -14,6 +14,9 @@ export const uploadFileSlice = createSlice({
     clearFiles: (state, action) => {
       state.files = [];
     },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(uploadFiles.pending, (state, action) => {
@@ -35,5 +38,5 @@ export const uploadFiles = createAsyncThunk(
   }
 );
 
-export const { clearFiles } = uploadFileSlice.actions;
+export const { clearFiles, setLoading } = uploadFileSlice.actions;
 export default uploadFileSlice.reducer;

@@ -53,7 +53,7 @@ const Profile = () => {
   return (
     <>
       <div className="fixed right-0 top-[22%] rounded-[8px] w-[15%]  bg-blue-400 h-[60%] ">
-        <div className="flex flex-col p-10 mt-10  text-center">
+        <div className="flex flex-col  mt-10  ">
           <div className="flex justify-center">
             <AvatarCard
               avatar={[profile?.avatar?.url]}
@@ -74,7 +74,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="mt-5 flex flex-col  text-center ">
+          <div className="mt-5   text-center  w-[100%]">
             <div
               className={`font-serif text-[1.4rem] text-center text-[${white}]`}
             >
@@ -88,7 +88,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="mt-5">
+          <div className="mt-5  w-[100%] text-center  ">
             <div className={`font-serif text-[1.4rem] text-[${white}]`}>
               {dateDifference(profile?.createdAt, new Date())}
             </div>
