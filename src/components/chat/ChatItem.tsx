@@ -15,7 +15,6 @@ const ChatItem = ({
   newMessageAlert,
   index = 0,
   selected,
-  handleDeleteChat,
   chat,
 }: any) => {
   const dispatch = useDispatch();

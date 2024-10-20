@@ -1,7 +1,6 @@
 import ChatItem from "./ChatItem";
 
 const ChatList = ({
-  w = "100%",
   chats = [],
   chatId = "",
   onlineUsers = [],

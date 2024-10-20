@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const Comment = ({ submitComment }: any) => {
   const [commentText, setCommentText] = useState("");
-  const handleOnChange = (e) => {
+  const handleOnChange = (e: any) => {
     setCommentText(e.target.value);
   };
   return (

@@ -12,7 +12,7 @@ export const messageSlice = createSlice({
   name: "message",
   initialState,
   reducers: {
-    setNewMessageAlert: (state, action) => {
+    setNewMessageAlert: (state: any, action) => {
       let isExist = false;
       const updatedAlerts = [...state.newMessageAlerts];
       updatedAlerts.forEach((ele, index) => {
@@ -27,12 +27,14 @@ export const messageSlice = createSlice({
         state.newMessageAlerts = [...updatedAlerts];
       }
     },
-    clearMessageAlertOfAChat: (state, action) => {
-      const updatedAlerts = state.newMessageAlerts.filter((ele, index) => {
-        if (ele.chatId !== action.payload) {
-          return ele;
+    clearMessageAlertOfAChat: (state: any, action) => {
+      const updatedAlerts = state.newMessageAlerts.filter(
+        (ele: any, index: string) => {
+          if (ele.chatId !== action.payload) {
+            return ele;
+          }
         }
-      });
+      );
       state.newMessageAlerts = [...updatedAlerts];
     },
   },
@@ -49,7 +51,7 @@ export const messageSlice = createSlice({
     });
   },
 });
-export const fetchMessagesByChatId = createAsyncThunk(
+export const fetchMessagesByChatId: any = createAsyncThunk(
   "fetchMessagesByChatId",
   async (chatId: string) => {
     return fetchMessages(chatId);

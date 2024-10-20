@@ -12,23 +12,23 @@ import {
 } from "../../store/slices/messageSlice";
 import FileUpload from "../file-upload/FileUpload";
 import { uploadFile } from "../../API/fileupload";
-import { setLoading, uploadFiles } from "../../store/slices/uploadFileSlice";
+import { setLoading } from "../../store/slices/uploadFileSlice";
 const socket = io.connect("http://localhost:8000");
 
 const Chatbox = () => {
   const [message, setMessage] = useState("");
-  const [allMsg, setAllMsg] = useState([]);
+  const [allMsg, setAllMsg]: any = useState([]);
   const [fileType, setFileType] = useState("");
-  const fileInputRef = useRef(null);
-  const scrollToBottomRef = useRef(null);
+  const fileInputRef: any = useRef(null);
+  const scrollToBottomRef: any = useRef(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const { chatId } = useParams();
   const {
     user: { profile },
     chatReducer: { chat },
-    messageReducer: { messages, newMessageAlerts },
-    fileReducer: { files, isLoading },
-  } = useSelector((store) => store);
+    messageReducer: { messages },
+    fileReducer: { isLoading },
+  } = useSelector((store: any) => store);
   const dispatch = useDispatch();
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
@@ -75,7 +75,7 @@ const Chatbox = () => {
     });
   }, [allMsg]);
 
-  const handleSend = (attachment = "") => {
+  const handleSend = (attachment: any = "") => {
     console.log("attachment", attachment);
     const fileDetails = attachment
       ? {
@@ -141,7 +141,7 @@ const Chatbox = () => {
               </>
             );
           })}
-          {allMsg.map((message, index) => {
+          {allMsg.map((message: any, index: number) => {
             return (
               <>
                 <MessageBox message={message} user={profile} index={index} />

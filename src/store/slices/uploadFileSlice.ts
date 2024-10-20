@@ -22,7 +22,7 @@ export const uploadFileSlice = createSlice({
     builder.addCase(uploadFiles.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(uploadFiles.fulfilled, (state, action) => {
+    builder.addCase(uploadFiles.fulfilled, (state: any, action) => {
       state.isLoading = false;
       state.files = [action.payload.file];
     });

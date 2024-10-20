@@ -10,7 +10,7 @@ const PostDetails = () => {
   const [url, setUrl] = useState("");
   const {
     postReducer: { post },
-  } = useSelector((store) => store);
+  } = useSelector((store: any) => store);
   useEffect(() => {
     if (post?.images) {
       const type = fileFormat(post?.images[0]?.url);

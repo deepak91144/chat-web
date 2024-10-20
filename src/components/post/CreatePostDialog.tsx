@@ -16,9 +16,7 @@ const CreatePostDialog = ({ openPostDialog, setOpenPostDialog }: any) => {
     creator: getUserId(),
   });
   const dispatch = useDispatch();
-  const {
-    postReducer: { isError, isLoading, message },
-  } = useSelector((store) => store);
+
   const handleClose = () => {
     setOpenPostDialog(false);
   };

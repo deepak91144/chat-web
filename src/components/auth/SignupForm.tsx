@@ -19,10 +19,10 @@ const SignupForm = ({ editProfile = false, handleSubmit }: any) => {
     },
     userPhoto: "",
   });
-  const fileInputRef = useRef(null);
+  const fileInputRef: any = useRef(null);
   const {
     user: { profile },
-  } = useSelector((store) => store);
+  } = useSelector((store: any) => store);
 
   const handleOnChnage = (e: any) => {
     const { name, value } = e.target;

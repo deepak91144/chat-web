@@ -11,8 +11,8 @@ const Post = () => {
   const dispatch = useDispatch();
   const [openPostDetailsDialog, setOpenPostDetailsDialog] = useState(false);
   const {
-    postReducer: { post, postCopy },
-  } = useSelector((store) => store);
+    postReducer: { post },
+  } = useSelector((store: any) => store);
   useEffect(() => {
     dispatch(fetchPosts());
   }, []);
