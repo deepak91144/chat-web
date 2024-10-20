@@ -31,9 +31,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
-    user: { users },
     friendRequestReducer: { friendRequests },
-  } = useSelector((state) => state);
+  } = useSelector((state: any) => state);
   const handleSearchClick = () => {
     setIsSearch((pre) => !pre);
   };

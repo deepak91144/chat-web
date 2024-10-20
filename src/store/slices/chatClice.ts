@@ -26,20 +26,20 @@ export const chatSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    clearGroup: (state, action) => {
+    clearGroup: (state) => {
       state.group = {};
     },
     setChatDetails: (state, action) => {
       state.chat = action.payload;
     },
-    clearChatReducer: (state, action) => {
+    clearChatReducer: (state) => {
       state.chats = [];
       state.groups = [];
       state.group = {};
       state.isLoading = false;
       state.isError = false;
     },
-    reArrangeTheChats: (state, action) => {
+    reArrangeTheChats: (state: any, action) => {
       const oldChats = [...state.chats];
       const result = oldChats.filter((chat) => {
         if (action.payload === chat._id) {
@@ -51,7 +51,7 @@ export const chatSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchChats.pending, (state, action) => {
+    builder.addCase(fetchChats.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchChats.fulfilled, (state, action) => {
@@ -60,41 +60,41 @@ export const chatSlice = createSlice({
       state.isLoading = false;
       state.chats = action.payload.chats;
     });
-    builder.addCase(fetchChats.rejected, (state, action) => {
+    builder.addCase(fetchChats.rejected, (state) => {
       state.isError = true;
     });
 
     // fetch my droups
-    builder.addCase(myGroups.pending, (state, action) => {
+    builder.addCase(myGroups.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(myGroups.fulfilled, (state, action) => {
       state.isLoading = false;
       state.groups = action.payload.groups;
     });
-    builder.addCase(myGroups.rejected, (state, action) => {
+    builder.addCase(myGroups.rejected, (state) => {
       state.isError = true;
     });
     // remove member from group
-    builder.addCase(removeMembersFromGroup.pending, (state, action) => {
+    builder.addCase(removeMembersFromGroup.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(removeMembersFromGroup.fulfilled, (state, action) => {
+    builder.addCase(removeMembersFromGroup.fulfilled, (state) => {
       state.isLoading = false;
     });
-    builder.addCase(removeMembersFromGroup.rejected, (state, action) => {
+    builder.addCase(removeMembersFromGroup.rejected, (state) => {
       state.isError = true;
     });
 
     // get group details
-    builder.addCase(groupDetails.pending, (state, action) => {
+    builder.addCase(groupDetails.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(groupDetails.fulfilled, (state, action) => {
       state.isLoading = false;
       state.group = action.payload.group;
     });
-    builder.addCase(groupDetails.rejected, (state, action) => {
+    builder.addCase(groupDetails.rejected, (state) => {
       state.isError = true;
     });
   },

@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 const FileUpload = (props: any) => {
   const { fileInputRef, handleFileOnChange, accept = "" } = props;
 

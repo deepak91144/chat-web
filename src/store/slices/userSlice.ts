@@ -16,7 +16,7 @@ export const userSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    clearUserReducer: (state, action) => {
+    clearUserReducer: (state) => {
       state.isLoading = false;
       state.users = [];
       state.isError = false;

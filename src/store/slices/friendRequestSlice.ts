@@ -22,7 +22,7 @@ export const friendRequestSlice = createSlice({
   name: "friendRequest",
   initialState,
   reducers: {
-    clearFriendRequestReducer: (state, action) => {
+    clearFriendRequestReducer: (state) => {
       state.friendRequests = [];
       state.friendRequestISent = [];
       state.friendRequestISent_receiverIds = [];
@@ -89,7 +89,7 @@ export const friendRequestISent = createAsyncThunk(
   }
 );
 
-export const myFriendRequest = createAsyncThunk(
+export const myFriendRequest: any = createAsyncThunk(
   "myFriendRequest",
   async (receiver: string) => {
     return fetchMyFriendRequest(receiver);

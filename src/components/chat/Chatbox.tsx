@@ -2,7 +2,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SendIcon from "@mui/icons-material/Send";
 import { Input, Menu, MenuItem } from "@mui/material";
 import MessageBox from "./MessageBox";
-import io from "socket.io-client";
+import * as io from "socket.io-client";
 import { useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
