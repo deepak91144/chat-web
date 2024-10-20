@@ -100,7 +100,6 @@ const Chatbox = () => {
     setMessage("");
 
     socket.emit("sendMessage", payload);
-    // dispatch(clearFiles());
   };
   const handleEnterKeyPress = (e: any) => {
     if (e.keyCode === 13) {
