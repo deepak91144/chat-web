@@ -4,6 +4,7 @@ import chatSlice from "./slices/chatClice";
 import friendRequestSlice from "./slices/friendRequestSlice";
 import messageSlice from "./slices/messageSlice";
 import uploadFileSlice from "./slices/uploadFileSlice";
+import postSlice from "./slices/postSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     friendRequestReducer: friendRequestSlice,
     messageReducer: messageSlice,
     fileReducer: uploadFileSlice,
+    postReducer: postSlice,
   },
 });
