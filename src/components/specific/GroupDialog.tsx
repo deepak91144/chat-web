@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CommonDialog from "../common-dialog/CommonDialog";
 import GroupDialogContent from "./GroupDialogContent";
+// @ts-ignore
 import _ from "lodash";
 import { useDispatch } from "react-redux";
 import {

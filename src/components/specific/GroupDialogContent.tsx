@@ -1,6 +1,7 @@
 import { Input } from "@mui/material";
 import GroupUserItem from "../shared/GroupUserItem";
 import { useEffect, useState } from "react";
+// @ts-ignore
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyFriends } from "../../store/slices/friendRequestSlice";

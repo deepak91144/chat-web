@@ -1,3 +1,4 @@
+// @ts-ignore
 import _ from "lodash";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {

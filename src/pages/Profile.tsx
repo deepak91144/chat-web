@@ -56,7 +56,8 @@ const Profile = () => {
         <div className="flex flex-col  mt-10  ">
           <div className="flex justify-center">
             <AvatarCard
-              avatar={[profile?.avatar?.url]}
+              // avatar={[profile?.avatar?.url]}
+              avatar={[]}
               width={100}
               height={100}
             />

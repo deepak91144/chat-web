@@ -11,7 +11,6 @@ import GroupUserList from "../group/GroupUserList";
 import {
   addMembersToGroup,
   groupDetails,
-  myGroups,
   removeMembersFromGroup,
 } from "../../store/slices/chatClice";
 import toast from "react-hot-toast";
@@ -25,7 +24,7 @@ const GroupDetails = ({ updateGroupName, deleteGroup, goBack }: any) => {
     useState(false);
   const [addMembrDialog, setAddMembrDialog] = useState(false);
   const {
-    chatReducer: { group, isLoading, isError },
+    chatReducer: { group },
     friendRequestReducer: { friends },
   } = useSelector((store: any) => store);
   const dispatch = useDispatch();
