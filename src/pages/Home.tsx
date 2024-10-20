@@ -39,7 +39,7 @@ const Home = () => {
       dispatch(setNewMessageAlert(payload));
     });
 
-    socket.on("newPostAlert", (payload: any) => {
+    socket.on("newPostAlert", () => {
       dispatch(fetchPosts());
     });
   }, []);
