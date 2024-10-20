@@ -1,4 +1,4 @@
-import { Drawer } from "@mui/material";
+import { Drawer, IconButton, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -14,12 +14,15 @@ import { white } from "../../constants/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserId } from "../../utils/localstorage-utils";
 import { myFriendRequest } from "../../store/slices/friendRequestSlice";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import CreatePostDialog from "../post/CreatePostDialog";
 
 const MobileMenu = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [isGroup, setIsGroup] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
+  const [openPostDialog, setOpenPostDialog] = useState(false);
   const dispatch = useDispatch();
   const {
     friendRequestReducer: { friendRequests },
@@ -37,6 +40,9 @@ const MobileMenu = () => {
   };
   const openNotificationDialog = () => {
     setIsNotification(true);
+  };
+  const handleOpenPostDialog = () => {
+    setOpenPostDialog(true);
   };
   const openCreateGroupDialog = () => {
     setIsGroup(true);
@@ -84,6 +90,9 @@ const MobileMenu = () => {
           <div onClick={openSearchDialog} className="cursor-pointer ">
             <SearchIcon sx={{ color: white }} />
           </div>
+          <div className="cursor-pointer ml-2" onClick={handleOpenPostDialog}>
+            <PostAddIcon sx={{ color: white }} />
+          </div>
         </div>
       </div>
       {isSearch && (
@@ -98,6 +107,12 @@ const MobileMenu = () => {
         />
       )}
       {isGroup && <GroupDialog isGroup={isGroup} setIsGroup={setIsGroup} />}
+      {openPostDialog && (
+        <CreatePostDialog
+          openPostDialog={openPostDialog}
+          setOpenPostDialog={setOpenPostDialog}
+        />
+      )}
 
       <Toaster
         toastOptions={{

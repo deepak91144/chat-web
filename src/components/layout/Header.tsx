@@ -2,6 +2,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import GroupIcon from "@mui/icons-material/Group";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import { useEffect, useState } from "react";
 import SearchDialog from "../specific/SearchDialog";
 import NotificationDialog from "../specific/NotificationDialog";
@@ -20,11 +21,13 @@ import { clearUserReducer } from "../../store/slices/userSlice";
 import { getUserId, removeUserId } from "../../utils/localstorage-utils";
 import { IconButton, Tooltip } from "@mui/material";
 import { white } from "../../constants/Colors";
+import CreatePostDialog from "../post/CreatePostDialog";
 
 const Header = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [isGroup, setIsGroup] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
+  const [openPostDialog, setOpenPostDialog] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -33,6 +36,9 @@ const Header = () => {
   } = useSelector((state) => state);
   const handleSearchClick = () => {
     setIsSearch((pre) => !pre);
+  };
+  const handleOpenPostDialog = () => {
+    setOpenPostDialog((prev) => !prev);
   };
   const handleGroupClick = () => {
     setIsGroup((pre) => !pre);
@@ -103,6 +109,13 @@ const Header = () => {
               </IconButton>
             </Tooltip>
           </span>
+          <span className="cursor-pointer" onClick={handleOpenPostDialog}>
+            <Tooltip title="Create Post">
+              <IconButton>
+                <PostAddIcon sx={{ color: white }} />
+              </IconButton>
+            </Tooltip>
+          </span>
           <span className="p-2 cursor-pointer" onClick={logutUser}>
             <Tooltip title="Logout">
               <IconButton>
@@ -119,6 +132,12 @@ const Header = () => {
         <NotificationDialog
           isNotification={isNotification}
           setIsNotification={setIsNotification}
+        />
+      )}
+      {openPostDialog && (
+        <CreatePostDialog
+          openPostDialog={openPostDialog}
+          setOpenPostDialog={setOpenPostDialog}
         />
       )}
       {isGroup && <GroupDialog isGroup={isGroup} setIsGroup={setIsGroup} />}

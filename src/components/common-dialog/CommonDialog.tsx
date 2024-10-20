@@ -20,6 +20,7 @@ const CommonDialog = ({
   cancelAction,
   showFirstButton = true,
   showSecondButton = true,
+  isFullWidth = false,
 }: any) => {
   return (
     <>
@@ -29,9 +30,14 @@ const CommonDialog = ({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
-        maxWidth={width}
+        PaperProps={{
+          sx: {
+            minWidth: isFullWidth ? "100%" : "",
+          },
+        }}
       >
         <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
+
         <DialogContent>{dialogContent}</DialogContent>
         <DialogActions>
           {showFirstButton && (
@@ -46,7 +52,6 @@ const CommonDialog = ({
           )}
           {showSecondButton && (
             <>
-              {" "}
               <CommonButton
                 text={secondButtonText}
                 onClickAction={cancelAction}
