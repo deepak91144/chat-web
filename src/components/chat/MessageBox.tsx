@@ -1,7 +1,6 @@
 import { memo } from "react";
 import { fileFormat } from "../../lib/feature";
 import RenderAttachment from "../shared/RenderAttachment";
-import moment from "moment";
 
 const MessageBox = ({ message, user, index }: any) => {
   const { sender, content, attachments = [], createdAt } = message;

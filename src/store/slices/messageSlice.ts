@@ -15,7 +15,7 @@ export const messageSlice = createSlice({
     setNewMessageAlert: (state: any, action) => {
       let isExist = false;
       const updatedAlerts = [...state.newMessageAlerts];
-      updatedAlerts.forEach((ele, index) => {
+      updatedAlerts.forEach((ele) => {
         if (action.payload.chatId.toString() === ele.chatId.toString()) {
           ele.count = ele.count + 1;
           isExist = true;
@@ -28,25 +28,23 @@ export const messageSlice = createSlice({
       }
     },
     clearMessageAlertOfAChat: (state: any, action) => {
-      const updatedAlerts = state.newMessageAlerts.filter(
-        (ele: any, index: string) => {
-          if (ele.chatId !== action.payload) {
-            return ele;
-          }
+      const updatedAlerts = state.newMessageAlerts.filter((ele: any) => {
+        if (ele.chatId !== action.payload) {
+          return ele;
         }
-      );
+      });
       state.newMessageAlerts = [...updatedAlerts];
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchMessagesByChatId.pending, (state, action) => {
+    builder.addCase(fetchMessagesByChatId.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchMessagesByChatId.fulfilled, (state, action) => {
       state.isLoading = false;
       state.messages = action.payload.messages;
     });
-    builder.addCase(fetchMessagesByChatId.rejected, (state, action) => {
+    builder.addCase(fetchMessagesByChatId.rejected, (state) => {
       state.isError = true;
     });
   },

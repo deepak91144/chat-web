@@ -22,7 +22,7 @@ const ProfileForMobile = () => {
   const navigate = useNavigate();
   const {
     user: { profile },
-  } = useSelector((store) => store);
+  } = useSelector((store: any) => store);
 
   const fetchProfile = async () => {
     const token = getAccessToken();

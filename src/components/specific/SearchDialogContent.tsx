@@ -23,7 +23,7 @@ const SearchDialogContent = ({ selectUser }: any) => {
       friendIds,
       friendRequestSenderIds,
     },
-  } = useSelector((state) => state);
+  } = useSelector((state: any) => state);
   const [allUsers, setAllUsers] = useState([...users]);
 
   const dispatch = useDispatch();

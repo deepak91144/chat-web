@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import FileUpload from "../file-upload/FileUpload";
 import { setLoading } from "../../store/slices/uploadFileSlice";
 import { uploadFile } from "../../API/fileupload";
@@ -8,14 +8,14 @@ import { fileFormat } from "../../lib/feature";
 import RenderAttachment from "../shared/RenderAttachment";
 import { Button } from "@mui/material";
 
-const PostForm = ({ post, setPost }: any) => {
-  const [uploadedMedia, setUploadedMedia] = useState(null);
+const PostForm = ({ setPost }: any) => {
+  const [uploadedMedia, setUploadedMedia]: any = useState(null);
   const [mediaFOrmat, setMediaFOrmat] = useState("");
   const dispatch = useDispatch();
-  const fileInputRef = useRef(null);
+  const fileInputRef: any = useRef(null);
   const {
     fileReducer: { isLoading },
-  } = useSelector((store) => store);
+  } = useSelector((store: any) => store);
   const handleFileOnChange = async (e: any) => {
     const fileDetails = e.target.files[0];
     const formData = new FormData();
@@ -30,7 +30,7 @@ const PostForm = ({ post, setPost }: any) => {
       const format = fileFormat(result.file.location);
       setMediaFOrmat(format);
       dispatch(setLoading(false));
-      setPost((prev) => {
+      setPost((prev: any) => {
         return {
           ...prev,
           images: { public_id: result.file.key, url: result.file.location },
@@ -40,7 +40,7 @@ const PostForm = ({ post, setPost }: any) => {
   };
   const handleOnChange = (e: any) => {
     const { name, value } = e.target;
-    setPost((prev) => {
+    setPost((prev: any) => {
       return { ...prev, [name]: value };
     });
   };

@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import ChatList from "../components/chat/ChatList";
 import AppLayout from "../components/layout/AppLayout";
-import { sampleData } from "../constants/sampleData";
 import Chatbox from "../components/chat/Chatbox";
 import Profile from "./Profile";
 import { useSelector } from "react-redux";
@@ -10,9 +9,9 @@ const Chat = () => {
   const params = useParams();
   const {
     chatReducer: { chats },
-  } = useSelector((store) => store);
+  } = useSelector((store: any) => store);
   const chatId = params.chatId;
-  const handleDeleteChat = (e, _id, groupChat) => {
+  const handleDeleteChat = (e: any, _id: any, groupChat: any) => {
     e.preventDefault();
     console.log("deleteChat", _id, groupChat);
   };

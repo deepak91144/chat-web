@@ -101,48 +101,54 @@ export const chatSlice = createSlice({
 });
 
 // extra reducer functions
-export const fetchChats = createAsyncThunk("fetchChats", async () => {
+export const fetchChats: any = createAsyncThunk("fetchChats", async () => {
   return fetchAllChats();
 });
-export const createGroup = createAsyncThunk("createGroup", async (payload) => {
-  return createAGroup(payload);
-});
-export const myGroups = createAsyncThunk("myGroups", async () => {
+export const createGroup: any = createAsyncThunk(
+  "createGroup",
+  async (payload) => {
+    return createAGroup(payload);
+  }
+);
+export const myGroups: any = createAsyncThunk("myGroups", async () => {
   return getMyGroups();
 });
 
-export const changeGroupName = createAsyncThunk(
+export const changeGroupName: any = createAsyncThunk(
   "changeGroupName",
   async (payload) => {
     return renameGroup(payload);
   }
 );
-export const deleteAGroup = createAsyncThunk(
+export const deleteAGroup: any = createAsyncThunk(
   "deleteAGroup",
   async (chatId: string) => {
     return deleteGroup(chatId);
   }
 );
 
-export const addMembersToGroup = createAsyncThunk(
+export const addMembersToGroup: any = createAsyncThunk(
   "addMembersToGroup",
   async (payload) => {
     return addMembersToAGroup(payload);
   }
 );
 
-export const removeMembersFromGroup = createAsyncThunk(
+export const removeMembersFromGroup: any = createAsyncThunk(
   "removeMembersFromGroup",
   async (payload) => {
     return removeMembersFromAGroup(payload);
   }
 );
 
-export const groupDetails = createAsyncThunk("groupDetails", async (chatId) => {
-  return getGroupDetails(chatId);
-});
+export const groupDetails: any = createAsyncThunk(
+  "groupDetails",
+  async (chatId) => {
+    return getGroupDetails(chatId);
+  }
+);
 
-export const putLatestChatOnTop = createAsyncThunk(
+export const putLatestChatOnTop: any = createAsyncThunk(
   "groupDetails",
   async (chatId) => {
     return putLatestChatOnTopOfList(chatId);

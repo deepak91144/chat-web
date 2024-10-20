@@ -1,4 +1,4 @@
-import { Drawer, IconButton, Tooltip } from "@mui/material";
+import { Drawer } from "@mui/material";
 import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -26,7 +26,7 @@ const MobileMenu = () => {
   const dispatch = useDispatch();
   const {
     friendRequestReducer: { friendRequests },
-  } = useSelector((state) => state);
+  } = useSelector((state: any) => state);
   const navigate = useNavigate();
   const toggleDrawer = () => {
     setOpenMenu(false);

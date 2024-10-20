@@ -16,7 +16,7 @@ const Profile = () => {
 
   const {
     user: { profile },
-  } = useSelector((store) => store);
+  } = useSelector((store: any) => store);
   const dispatch = useDispatch();
   const fetchProfile = async () => {
     const token = getAccessToken();

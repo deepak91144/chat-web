@@ -12,9 +12,8 @@ import toast from "react-hot-toast";
 
 const NotificationDialog = ({ isNotification, setIsNotification }: any) => {
   const {
-    user: { users },
-    friendRequestReducer: { friendRequests, friendRequestISent_receiverIds },
-  } = useSelector((state) => state);
+    friendRequestReducer: { friendRequests },
+  } = useSelector((state: any) => state);
   const dispatch = useDispatch();
   const handleClose = () => {
     setIsNotification(false);

@@ -1,11 +1,6 @@
 import GroupItem from "./GroupItem";
 
-const GroupList = ({
-  width = "100%",
-  myGroups = [],
-  chatId,
-  selectGroup,
-}: any) => {
+const GroupList = ({ myGroups = [], chatId, selectGroup }: any) => {
   return (
     <>
       <div>

@@ -20,14 +20,14 @@ import { white } from "../../constants/Colors";
 const GroupDetails = ({ updateGroupName, deleteGroup, goBack }: any) => {
   const [isEditGroup, setIsEditGroup] = useState(false);
   const [groupName, setGroupName] = useState("");
-  const [selectedMembers, setSelectedMembers] = useState([]);
+  const [selectedMembers, setSelectedMembers]: any = useState([]);
   const [deleteConformationDialog, setDeleteConformationDialog] =
     useState(false);
   const [addMembrDialog, setAddMembrDialog] = useState(false);
   const {
     chatReducer: { group, isLoading, isError },
     friendRequestReducer: { friends },
-  } = useSelector((store) => store);
+  } = useSelector((store: any) => store);
   const dispatch = useDispatch();
   const openDeleteConfirmationModal = () => {
     setDeleteConformationDialog(true);

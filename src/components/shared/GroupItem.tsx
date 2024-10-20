@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AvatarCard from "./AvatarCard";
 
 const GroupItem = ({ group, chatId, selectGroup }: any) => {

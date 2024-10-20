@@ -19,10 +19,10 @@ export const postSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createPost.pending, (state, action) => {
+    builder.addCase(createPost.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(createPost.fulfilled, (state, action) => {
+    builder.addCase(createPost.fulfilled, (state) => {
       state.isLoading = false;
       state.isError = false;
     });
@@ -33,7 +33,7 @@ export const postSlice = createSlice({
     });
 
     // fetch all posts
-    builder.addCase(fetchPosts.pending, (state, action) => {
+    builder.addCase(fetchPosts.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
@@ -48,7 +48,7 @@ export const postSlice = createSlice({
     });
 
     // fetch post details
-    builder.addCase(postDetails.pending, (state, action) => {
+    builder.addCase(postDetails.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(postDetails.fulfilled, (state, action) => {

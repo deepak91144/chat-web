@@ -21,7 +21,7 @@ const Group = () => {
   const dispatch = useDispatch();
   const {
     chatReducer: { groups, group },
-  } = useSelector((store) => store);
+  } = useSelector((store: any) => store);
   const chatId = searchParams.get("group");
   const fetchMyGroups = () => {
     dispatch(myGroups());

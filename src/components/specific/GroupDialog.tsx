@@ -8,8 +8,8 @@ import {
   fetchChats,
   myGroups,
 } from "../../store/slices/chatClice";
-import toast, { Toaster } from "react-hot-toast";
-import { getAccessToken } from "../../utils/localstorage-utils";
+import toast from "react-hot-toast";
+
 const GroupDialog = ({ isGroup, setIsGroup }: any) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [groupName, setGroupName] = useState("");

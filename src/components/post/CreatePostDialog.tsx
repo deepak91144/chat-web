@@ -1,15 +1,15 @@
 import { useState } from "react";
 import CommonDialog from "../common-dialog/CommonDialog";
 import PostForm from "./PostForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createPost, fetchPosts } from "../../store/slices/postSlice";
 import { getUserId } from "../../utils/localstorage-utils";
 import toast from "react-hot-toast";
-import io from "socket.io-client";
+import * as io from "socket.io-client";
 const socket = io.connect("http://localhost:8000");
 
 const CreatePostDialog = ({ openPostDialog, setOpenPostDialog }: any) => {
-  const [post, setPost] = useState({
+  const [post, setPost]: any = useState({
     title: "",
     description: "",
     images: {},

@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { fetchChats, reArrangeTheChats } from "../store/slices/chatClice";
 import { getUserId } from "../utils/localstorage-utils";
 import { setNewMessageAlert } from "../store/slices/messageSlice";
-import io from "socket.io-client";
+import * as io from "socket.io-client";
 import Post from "./Post";
 import { fetchPosts } from "../store/slices/postSlice";
 
@@ -18,11 +18,10 @@ const Home = () => {
   const chatId = params.chatId;
   const userId = getUserId();
   const {
-    user: { users },
     chatReducer: { chats },
-    messageReducer: { messages, newMessageAlerts },
-  } = useSelector((store) => store);
-  const handleDeleteChat = (e, _id, groupChat) => {
+    messageReducer: { newMessageAlerts },
+  } = useSelector((store: any) => store);
+  const handleDeleteChat = (e: any, _id: any) => {
     e.preventDefault();
   };
   console.log("newMessageAlerts", newMessageAlerts);
