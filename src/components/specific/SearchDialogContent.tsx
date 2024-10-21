@@ -52,7 +52,7 @@ const SearchDialogContent = ({ selectUser }: any) => {
 
   const handleSearchChange = (e: any) => {
     const filteredUsers = users.filter((user: any) => {
-      if (user?.name.includes(e.target.value)) {
+      if (user?.name.includes(e.target.value.toLowerCase())) {
         return user;
       }
     });

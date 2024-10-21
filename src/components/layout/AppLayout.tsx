@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import MobileMenu from "./MobileMenu";
 import { primary } from "../../constants/Colors";
+isMobile;
 
 const AppLayout = () => (WrapedComponent: any) => {
   return (props: any) => {
@@ -11,10 +12,7 @@ const AppLayout = () => (WrapedComponent: any) => {
       <>
         <div>
           <Title />
-
-          <MobileMenu />
-
-          <Header />
+          {isMobile ? <MobileMenu /> : <Header />}
 
           <div className={`md:mt-20 mt-12 bg-[${primary}]`}>
             <WrapedComponent {...props} />
