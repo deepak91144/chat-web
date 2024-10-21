@@ -74,7 +74,7 @@ const Chatbox = () => {
       behavior: "smooth",
       block: "end",
     });
-  }, [allMsg]);
+  }, [allMsg, messages]);
 
   const handleSend = (attachment: any = "") => {
     console.log("attachment", attachment);
@@ -87,7 +87,6 @@ const Chatbox = () => {
 
     const payload = {
       content: message,
-
       _id: profile._id,
       sender: {
         _id: profile._id,
@@ -122,9 +121,6 @@ const Chatbox = () => {
     formData.append("photo", fileDetails);
     dispatch(setLoading(true));
     const result = await uploadFile(formData);
-
-    console.log("result", result);
-
     if (result?.success) {
       dispatch(setLoading(false));
       handleSend(result.file);
@@ -133,8 +129,8 @@ const Chatbox = () => {
 
   return (
     <>
-      <div className="relative">
-        <div className=" h-[82vh] flex flex-col  overflow-scroll	">
+      <div className="relative  pt-5">
+        <div className=" h-[80vh]  p-1 flex flex-col  overflow-scroll	">
           {messages.map((message: any, index: number) => {
             return (
               <>
@@ -142,6 +138,7 @@ const Chatbox = () => {
               </>
             );
           })}
+
           {allMsg.map((message: any, index: number) => {
             return (
               <>
@@ -149,6 +146,7 @@ const Chatbox = () => {
               </>
             );
           })}
+
           <div ref={scrollToBottomRef}></div>
         </div>
 

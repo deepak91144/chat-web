@@ -3,18 +3,14 @@ import ChatList from "../components/chat/ChatList";
 import AppLayout from "../components/layout/AppLayout";
 import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchChats, reArrangeTheChats } from "../store/slices/chatClice";
+import { useEffect, useState } from "react";
+import { fetchChats } from "../store/slices/chatClice";
 import { getUserId } from "../utils/localstorage-utils";
-import { setNewMessageAlert } from "../store/slices/messageSlice";
-import * as io from "socket.io-client";
 import Post from "./Post";
-import { fetchPosts } from "../store/slices/postSlice";
-import { baseUrl } from "../constants/serverConstants";
 
-const socket = io.connect(baseUrl);
 const Home = () => {
   const params = useParams();
+  const [gotNewMessage, setGotNewMessage] = useState(false);
   const dispatch = useDispatch();
   const chatId = params.chatId;
   const userId = getUserId();
@@ -32,17 +28,6 @@ const Home = () => {
   };
   useEffect(() => {
     fetchMyChats();
-  }, []);
-  useEffect(() => {
-    socket.on("NEW_MESSAGE_ALERT", (payload: any) => {
-      console.log("payload_", payload);
-      dispatch(reArrangeTheChats(payload.chatId));
-      dispatch(setNewMessageAlert(payload));
-    });
-
-    socket.on("newPostAlert", () => {
-      dispatch(fetchPosts());
-    });
   }, []);
 
   return (

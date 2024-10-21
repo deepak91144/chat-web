@@ -23,7 +23,7 @@ const PostList = ({ onPostClick, submitComment }: any) => {
           })
         ) : (
           <>
-            <div>No post found</div>
+            <div className="mt-10">No post found</div>
           </>
         )}
       </div>

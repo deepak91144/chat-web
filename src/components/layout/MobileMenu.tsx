@@ -7,7 +7,7 @@ import MobileMenuItem from "./MobileMenuItem";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchDialog from "../specific/SearchDialog";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import NotificationDialog from "../specific/NotificationDialog";
 import GroupDialog from "../specific/GroupDialog";
 import { white } from "../../constants/Colors";
@@ -16,13 +16,21 @@ import { getUserId } from "../../utils/localstorage-utils";
 import { myFriendRequest } from "../../store/slices/friendRequestSlice";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import CreatePostDialog from "../post/CreatePostDialog";
+import * as io from "socket.io-client";
+import { baseUrl } from "../../constants/serverConstants";
+import { reArrangeTheChats } from "../../store/slices/chatClice";
+import { setNewMessageAlert } from "../../store/slices/messageSlice";
+import { fetchPosts } from "../../store/slices/postSlice";
+const socket = io.connect(baseUrl);
 
 const MobileMenu = () => {
+  const [gotNewMessage, setGotNewMessage] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [isGroup, setIsGroup] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
   const [openPostDialog, setOpenPostDialog] = useState(false);
+  const userId = getUserId();
   const dispatch = useDispatch();
   const {
     friendRequestReducer: { friendRequests },
@@ -54,9 +62,37 @@ const MobileMenu = () => {
   useEffect(() => {
     fetchFrindRequests();
   }, []);
+
+  useEffect(() => {
+    socket.on("NEW_MESSAGE_ALERT", (payload: any) => {
+      console.log("payload_", payload);
+      if (payload.sender.toString() !== userId.toString()) {
+        setGotNewMessage(true);
+        toast.success("You have a new message");
+        setTimeout(() => {
+          setGotNewMessage(false);
+        }, 500);
+        dispatch(reArrangeTheChats(payload.chatId));
+        dispatch(setNewMessageAlert(payload));
+      }
+    });
+    socket.on("newPostAlert", () => {
+      dispatch(fetchPosts());
+    });
+  }, []);
   return (
     <>
       <div className="bg-[#106DBE] flex md:hidden fixed top-0 w-screen h-[4rem] items-center justify-between  z-40 p-5">
+        {gotNewMessage && (
+          <>
+            <audio controls autoPlay hidden>
+              <source
+                src="https://bucketone0.s3.ap-south-1.amazonaws.com/short-beep-tone-47916.mp3"
+                type="audio/ogg"
+              />
+            </audio>
+          </>
+        )}
         <button
           onClick={() => {
             setOpenMenu(true);
