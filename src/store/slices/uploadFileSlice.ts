@@ -11,7 +11,7 @@ export const uploadFileSlice = createSlice({
   name: "message",
   initialState,
   reducers: {
-    clearFiles: (state, action) => {
+    clearFiles: (state) => {
       state.files = [];
     },
     setLoading: (state, action) => {
@@ -19,14 +19,14 @@ export const uploadFileSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(uploadFiles.pending, (state, action) => {
+    builder.addCase(uploadFiles.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(uploadFiles.fulfilled, (state, action) => {
+    builder.addCase(uploadFiles.fulfilled, (state: any, action) => {
       state.isLoading = false;
       state.files = [action.payload.file];
     });
-    builder.addCase(uploadFiles.rejected, (state, action) => {
+    builder.addCase(uploadFiles.rejected, (state) => {
       state.isError = true;
     });
   },

@@ -15,7 +15,6 @@ const CommonDialog = ({
   secondButtonText,
   firstButtonBgColor,
   secondButtonBgColor,
-  width,
   submitAction,
   cancelAction,
   showFirstButton = true,

@@ -4,7 +4,7 @@ import PostItem from "./PostItem";
 const PostList = ({ onPostClick, submitComment }: any) => {
   const {
     postReducer: { posts },
-  } = useSelector((store) => store);
+  } = useSelector((store: any) => store);
   return (
     <>
       <div className="flex flex-col items-center ">

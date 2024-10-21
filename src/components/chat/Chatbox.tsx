@@ -2,7 +2,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SendIcon from "@mui/icons-material/Send";
 import { Input, Menu, MenuItem } from "@mui/material";
 import MessageBox from "./MessageBox";
-import io from "socket.io-client";
+import * as io from "socket.io-client";
 import { useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,23 +12,24 @@ import {
 } from "../../store/slices/messageSlice";
 import FileUpload from "../file-upload/FileUpload";
 import { uploadFile } from "../../API/fileupload";
-import { setLoading, uploadFiles } from "../../store/slices/uploadFileSlice";
-const socket = io.connect("http://localhost:8000");
+import { setLoading } from "../../store/slices/uploadFileSlice";
+import { baseUrl } from "../../constants/serverConstants";
+const socket = io.connect(baseUrl);
 
 const Chatbox = () => {
   const [message, setMessage] = useState("");
-  const [allMsg, setAllMsg] = useState([]);
+  const [allMsg, setAllMsg]: any = useState([]);
   const [fileType, setFileType] = useState("");
-  const fileInputRef = useRef(null);
-  const scrollToBottomRef = useRef(null);
+  const fileInputRef: any = useRef(null);
+  const scrollToBottomRef: any = useRef(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const { chatId } = useParams();
   const {
     user: { profile },
     chatReducer: { chat },
-    messageReducer: { messages, newMessageAlerts },
-    fileReducer: { files, isLoading },
-  } = useSelector((store) => store);
+    messageReducer: { messages },
+    fileReducer: { isLoading },
+  } = useSelector((store: any) => store);
   const dispatch = useDispatch();
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
@@ -75,7 +76,7 @@ const Chatbox = () => {
     });
   }, [allMsg]);
 
-  const handleSend = (attachment = "") => {
+  const handleSend = (attachment: any = "") => {
     console.log("attachment", attachment);
     const fileDetails = attachment
       ? {
@@ -141,7 +142,7 @@ const Chatbox = () => {
               </>
             );
           })}
-          {allMsg.map((message, index) => {
+          {allMsg.map((message: any, index: number) => {
             return (
               <>
                 <MessageBox message={message} user={profile} index={index} />

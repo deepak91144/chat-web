@@ -1,7 +1,6 @@
 import ChatItem from "./ChatItem";
 
 const ChatList = ({
-  w = "100%",
   chats = [],
   chatId = "",
   onlineUsers = [],
@@ -18,9 +17,7 @@ const ChatList = ({
             const newMessageAlert = newMessagesAlert.find(
               (ele: any) => ele.chatId === _id
             );
-            const isOnline = members?.some((member: any) =>
-              onlineUsers.includes(_id)
-            );
+            const isOnline = members?.some(() => onlineUsers.includes(_id));
             const sameSender = members?.some((member: any) =>
               member.includes(userId)
             );

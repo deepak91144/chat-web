@@ -15,7 +15,6 @@ const ChatItem = ({
   newMessageAlert,
   index = 0,
   selected,
-  handleDeleteChat,
   chat,
 }: any) => {
   const dispatch = useDispatch();
@@ -27,7 +26,9 @@ const ChatItem = ({
   return (
     <>
       <div
-        className={`w-[100%]  ${index !== 0 && "mt-2"} ${
+        className={`w-[100%]  ${
+          index === 0 ? "md:mt-[1rem] mt-[4.5rem]" : "mt-2"
+        } ${
           selected ? "bg-green-950" : "bg-blue-400 "
         }    flex items-center cursor-pointer relative rounded-[8px] p-2`}
         onClick={redirectToChat}

@@ -9,13 +9,13 @@ const UserItem = (props: any) => {
     name,
     _id,
     avatar,
-    handler,
+    // handler,
     selectUser,
     friendRequestSent,
     addedAsFriend,
     friendRequestReceived,
     fiendRequestActionHandler,
-    isMember,
+    // isMember,
   } = props;
   return (
     <>

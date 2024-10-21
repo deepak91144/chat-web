@@ -12,7 +12,7 @@ export const login = async (user: any) => {
   try {
     const result = await axios.post(`${baseUrl}/user/login`, user);
     return result.data;
-  } catch (error) {
+  } catch (error: any) {
     return error.response.data;
   }
 };

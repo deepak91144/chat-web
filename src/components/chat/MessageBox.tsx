@@ -1,12 +1,11 @@
 import { memo } from "react";
 import { fileFormat } from "../../lib/feature";
 import RenderAttachment from "../shared/RenderAttachment";
-import moment from "moment";
 
 const MessageBox = ({ message, user, index }: any) => {
   const { sender, content, attachments = [], createdAt } = message;
   const sameSender = sender?._id === user?._id;
-  var duration = moment.duration(moment().diff(moment(createdAt)));
+  // var duration = moment.duration(moment().diff(moment(createdAt)));
 
   return (
     <>
@@ -29,7 +28,7 @@ const MessageBox = ({ message, user, index }: any) => {
         {content && <div>{content}</div>}
 
         {attachments.length > 0 &&
-          attachments.map((attachment: any, index: number) => {
+          attachments.map((attachment: any) => {
             const url = attachment.url;
             const file = fileFormat(url);
             return (

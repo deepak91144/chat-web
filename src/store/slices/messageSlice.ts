@@ -12,10 +12,10 @@ export const messageSlice = createSlice({
   name: "message",
   initialState,
   reducers: {
-    setNewMessageAlert: (state, action) => {
+    setNewMessageAlert: (state: any, action) => {
       let isExist = false;
       const updatedAlerts = [...state.newMessageAlerts];
-      updatedAlerts.forEach((ele, index) => {
+      updatedAlerts.forEach((ele) => {
         if (action.payload.chatId.toString() === ele.chatId.toString()) {
           ele.count = ele.count + 1;
           isExist = true;
@@ -27,8 +27,8 @@ export const messageSlice = createSlice({
         state.newMessageAlerts = [...updatedAlerts];
       }
     },
-    clearMessageAlertOfAChat: (state, action) => {
-      const updatedAlerts = state.newMessageAlerts.filter((ele, index) => {
+    clearMessageAlertOfAChat: (state: any, action) => {
+      const updatedAlerts = state.newMessageAlerts.filter((ele: any) => {
         if (ele.chatId !== action.payload) {
           return ele;
         }
@@ -37,19 +37,19 @@ export const messageSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchMessagesByChatId.pending, (state, action) => {
+    builder.addCase(fetchMessagesByChatId.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchMessagesByChatId.fulfilled, (state, action) => {
       state.isLoading = false;
       state.messages = action.payload.messages;
     });
-    builder.addCase(fetchMessagesByChatId.rejected, (state, action) => {
+    builder.addCase(fetchMessagesByChatId.rejected, (state) => {
       state.isError = true;
     });
   },
 });
-export const fetchMessagesByChatId = createAsyncThunk(
+export const fetchMessagesByChatId: any = createAsyncThunk(
   "fetchMessagesByChatId",
   async (chatId: string) => {
     return fetchMessages(chatId);

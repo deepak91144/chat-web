@@ -7,22 +7,22 @@ import { useEffect } from "react";
 import { fetchChats, reArrangeTheChats } from "../store/slices/chatClice";
 import { getUserId } from "../utils/localstorage-utils";
 import { setNewMessageAlert } from "../store/slices/messageSlice";
-import io from "socket.io-client";
+import * as io from "socket.io-client";
 import Post from "./Post";
 import { fetchPosts } from "../store/slices/postSlice";
+import { baseUrl } from "../constants/serverConstants";
 
-const socket = io.connect("http://localhost:8000");
+const socket = io.connect(baseUrl);
 const Home = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const chatId = params.chatId;
   const userId = getUserId();
   const {
-    user: { users },
     chatReducer: { chats },
-    messageReducer: { messages, newMessageAlerts },
-  } = useSelector((store) => store);
-  const handleDeleteChat = (e, _id, groupChat) => {
+    messageReducer: { newMessageAlerts },
+  } = useSelector((store: any) => store);
+  const handleDeleteChat = (e: any, _id: any) => {
     e.preventDefault();
   };
   console.log("newMessageAlerts", newMessageAlerts);
@@ -40,7 +40,7 @@ const Home = () => {
       dispatch(setNewMessageAlert(payload));
     });
 
-    socket.on("newPostAlert", (payload: any) => {
+    socket.on("newPostAlert", () => {
       dispatch(fetchPosts());
     });
   }, []);

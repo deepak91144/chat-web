@@ -14,26 +14,26 @@ export const postSlice = createSlice({
   name: "postSlice",
   initialState,
   reducers: {
-    clearPost: (state, action) => {
+    clearPost: (state: any): any => {
       state.post = {};
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createPost.pending, (state, action) => {
+    builder.addCase(createPost.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(createPost.fulfilled, (state, action) => {
+    builder.addCase(createPost.fulfilled, (state) => {
       state.isLoading = false;
       state.isError = false;
     });
-    builder.addCase(createPost.rejected, (state, action) => {
+    builder.addCase(createPost.rejected, (state: any, action) => {
       console.log("action_", action);
       state.isError = true;
       state.message = action?.error?.message;
     });
 
     // fetch all posts
-    builder.addCase(fetchPosts.pending, (state, action) => {
+    builder.addCase(fetchPosts.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
@@ -41,14 +41,14 @@ export const postSlice = createSlice({
       state.isError = false;
       state.posts = action.payload.posts;
     });
-    builder.addCase(fetchPosts.rejected, (state, action) => {
+    builder.addCase(fetchPosts.rejected, (state: any, action) => {
       console.log("action_", action);
       state.isError = true;
       state.message = action?.error?.message;
     });
 
     // fetch post details
-    builder.addCase(postDetails.pending, (state, action) => {
+    builder.addCase(postDetails.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(postDetails.fulfilled, (state, action) => {
@@ -56,21 +56,24 @@ export const postSlice = createSlice({
       state.isError = false;
       state.post = action.payload.post;
     });
-    builder.addCase(postDetails.rejected, (state, action) => {
+    builder.addCase(postDetails.rejected, (state: any, action) => {
       console.log("action_", action);
       state.isError = true;
       state.message = action?.error?.message;
     });
   },
 });
-export const createPost = createAsyncThunk("createPost", async (post: any) => {
-  return createNewPost(post);
-});
+export const createPost: any = createAsyncThunk(
+  "createPost",
+  async (post: any) => {
+    return createNewPost(post);
+  }
+);
 
-export const fetchPosts = createAsyncThunk("fetchPosts", async () => {
+export const fetchPosts: any = createAsyncThunk("fetchPosts", async () => {
   return fetchAllPosts();
 });
-export const postDetails = createAsyncThunk(
+export const postDetails: any = createAsyncThunk(
   "postDetails",
   async (postId: string) => {
     return fetchPostDetails(postId);

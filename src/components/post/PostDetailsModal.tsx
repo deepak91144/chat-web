@@ -1,8 +1,5 @@
-import React from "react";
 import CommonDialog from "../common-dialog/CommonDialog";
 import PostDetails from "./PostDetails";
-import { useDispatch } from "react-redux";
-import { clearPost } from "../../store/slices/postSlice";
 
 const PostDetailsModal = ({
   openPostDetailsDialog,

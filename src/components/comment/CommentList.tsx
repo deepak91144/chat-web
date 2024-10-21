@@ -5,7 +5,7 @@ const CommentList = ({ comments = [] }: any) => {
     <>
       <div className="mt-5">Comment section</div>
 
-      {comments.map((comment: any, index: number) => {
+      {comments.map((comment: any) => {
         return (
           <>
             <CommentItem comment={comment} />

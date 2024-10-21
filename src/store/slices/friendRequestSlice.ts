@@ -22,7 +22,7 @@ export const friendRequestSlice = createSlice({
   name: "friendRequest",
   initialState,
   reducers: {
-    clearFriendRequestReducer: (state, action) => {
+    clearFriendRequestReducer: (state) => {
       state.friendRequests = [];
       state.friendRequestISent = [];
       state.friendRequestISent_receiverIds = [];
@@ -34,7 +34,7 @@ export const friendRequestSlice = createSlice({
   },
   extraReducers: (builder) => {
     // my friend request
-    builder.addCase(myFriendRequest.pending, (state, action) => {
+    builder.addCase(myFriendRequest.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(myFriendRequest.fulfilled, (state, action) => {
@@ -42,12 +42,12 @@ export const friendRequestSlice = createSlice({
       state.friendRequests = action.payload.friendRequests;
       state.friendRequestSenderIds = action.payload.friendRequestSenderIds;
     });
-    builder.addCase(myFriendRequest.rejected, (state, action) => {
+    builder.addCase(myFriendRequest.rejected, (state) => {
       state.isError = true;
     });
 
     // friend request i have sent
-    builder.addCase(friendRequestISent.pending, (state, action) => {
+    builder.addCase(friendRequestISent.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(friendRequestISent.fulfilled, (state, action) => {
@@ -55,12 +55,12 @@ export const friendRequestSlice = createSlice({
       state.friendRequestISent = action.payload.friendRequests;
       state.friendRequestISent_receiverIds = action.payload.receiverIds;
     });
-    builder.addCase(friendRequestISent.rejected, (state, action) => {
+    builder.addCase(friendRequestISent.rejected, (state) => {
       state.isError = true;
     });
 
     // get my friends
-    builder.addCase(fetchMyFriends.pending, (state, action) => {
+    builder.addCase(fetchMyFriends.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchMyFriends.fulfilled, (state, action) => {
@@ -68,42 +68,42 @@ export const friendRequestSlice = createSlice({
       state.friends = action.payload.friendsList;
       state.friendIds = action.payload.friendIds;
     });
-    builder.addCase(fetchMyFriends.rejected, (state, action) => {
+    builder.addCase(fetchMyFriends.rejected, (state) => {
       state.isError = true;
       state.isLoading = false;
     });
   },
 });
 
-export const friendRequest = createAsyncThunk(
+export const friendRequest: any = createAsyncThunk(
   "friendRequest",
   async (payload) => {
     return sendFriendRequest(payload);
   }
 );
 
-export const friendRequestISent = createAsyncThunk(
+export const friendRequestISent: any = createAsyncThunk(
   "friendRequestISent",
   async (userId: string) => {
     return fiendRequestIHaveSent(userId);
   }
 );
 
-export const myFriendRequest = createAsyncThunk(
+export const myFriendRequest: any = createAsyncThunk(
   "myFriendRequest",
   async (receiver: string) => {
     return fetchMyFriendRequest(receiver);
   }
 );
 
-export const acceptMyFriendRequest = createAsyncThunk(
+export const acceptMyFriendRequest: any = createAsyncThunk(
   "myFriendRequest",
   async (payload) => {
     return acceptFriendRequest(payload);
   }
 );
 
-export const fetchMyFriends = createAsyncThunk(
+export const fetchMyFriends: any = createAsyncThunk(
   "fetchMyFriends",
   async (userId: string) => {
     return fetchAllMyFriends(userId);

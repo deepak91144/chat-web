@@ -16,7 +16,7 @@ const Profile = () => {
 
   const {
     user: { profile },
-  } = useSelector((store) => store);
+  } = useSelector((store: any) => store);
   const dispatch = useDispatch();
   const fetchProfile = async () => {
     const token = getAccessToken();
@@ -56,7 +56,8 @@ const Profile = () => {
         <div className="flex flex-col  mt-10  ">
           <div className="flex justify-center">
             <AvatarCard
-              avatar={[profile?.avatar?.url]}
+              // avatar={[profile?.avatar?.url]}
+              avatar={[]}
               width={100}
               height={100}
             />

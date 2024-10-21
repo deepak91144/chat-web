@@ -1,4 +1,4 @@
-import { Drawer, IconButton, Tooltip } from "@mui/material";
+import { Drawer } from "@mui/material";
 import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -26,7 +26,7 @@ const MobileMenu = () => {
   const dispatch = useDispatch();
   const {
     friendRequestReducer: { friendRequests },
-  } = useSelector((state) => state);
+  } = useSelector((state: any) => state);
   const navigate = useNavigate();
   const toggleDrawer = () => {
     setOpenMenu(false);
@@ -56,7 +56,7 @@ const MobileMenu = () => {
   }, []);
   return (
     <>
-      <div className="bg-[#106DBE] flex md:hidden fixed top-0 w-screen h-[3rem] items-center justify-between  z-40 p-5">
+      <div className="bg-[#106DBE] flex md:hidden fixed top-0 w-screen h-[4rem] items-center justify-between  z-40 p-5">
         <button
           onClick={() => {
             setOpenMenu(true);
@@ -124,8 +124,14 @@ const MobileMenu = () => {
         }}
       />
 
-      <Drawer open={openMenu} onClose={toggleDrawer}>
-        <MobileMenuItem widthValue="200px" />
+      <Drawer
+        open={openMenu}
+        onClose={toggleDrawer}
+        PaperProps={{
+          sx: { width: "100%" },
+        }}
+      >
+        <MobileMenuItem toggleDrawer={toggleDrawer} />
       </Drawer>
     </>
   );
