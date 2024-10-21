@@ -14,7 +14,7 @@ const AppLayout = () => (WrapedComponent: any) => {
 
           <MobileMenu />
 
-          {/* <Header /> */}
+          <Header />
 
           <div className={`md:mt-20 mt-12 bg-[${primary}]`}>
             <WrapedComponent {...props} />

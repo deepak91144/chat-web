@@ -3,14 +3,13 @@ import ChatList from "../components/chat/ChatList";
 import AppLayout from "../components/layout/AppLayout";
 import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchChats } from "../store/slices/chatClice";
 import { getUserId } from "../utils/localstorage-utils";
 import Post from "./Post";
 
 const Home = () => {
   const params = useParams();
-  const [gotNewMessage, setGotNewMessage] = useState(false);
   const dispatch = useDispatch();
   const chatId = params.chatId;
   const userId = getUserId();
