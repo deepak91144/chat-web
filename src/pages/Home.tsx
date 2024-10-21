@@ -10,8 +10,9 @@ import { setNewMessageAlert } from "../store/slices/messageSlice";
 import * as io from "socket.io-client";
 import Post from "./Post";
 import { fetchPosts } from "../store/slices/postSlice";
+import { baseUrl } from "../constants/serverConstants";
 
-const socket = io.connect("http://localhost:8000");
+const socket = io.connect(baseUrl);
 const Home = () => {
   const params = useParams();
   const dispatch = useDispatch();

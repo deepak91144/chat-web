@@ -13,7 +13,8 @@ import {
 import FileUpload from "../file-upload/FileUpload";
 import { uploadFile } from "../../API/fileupload";
 import { setLoading } from "../../store/slices/uploadFileSlice";
-const socket = io.connect("http://localhost:8000");
+import { baseUrl } from "../../constants/serverConstants";
+const socket = io.connect(baseUrl);
 
 const Chatbox = () => {
   const [message, setMessage] = useState("");

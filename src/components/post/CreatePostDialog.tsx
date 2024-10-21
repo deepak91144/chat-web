@@ -6,7 +6,8 @@ import { createPost, fetchPosts } from "../../store/slices/postSlice";
 import { getUserId } from "../../utils/localstorage-utils";
 import toast from "react-hot-toast";
 import * as io from "socket.io-client";
-const socket = io.connect("http://localhost:8000");
+import { baseUrl } from "../../constants/serverConstants";
+const socket = io.connect(baseUrl);
 
 const CreatePostDialog = ({ openPostDialog, setOpenPostDialog }: any) => {
   const [post, setPost]: any = useState({

@@ -66,7 +66,7 @@ const Header = () => {
   };
   return (
     <>
-      <div className="md:flex  hidden justify-between bg-[#106DBE] fixed top-0 w-screen z-50">
+      <div className="md:flex  hidden justify-between bg-[#106DBE] items-center  fixed top-0 w-screen z-50">
         <div
           className="m-5 cursor-pointer text-[#FFFFFF] font-sans font-extrabold text-2xl  "
           onClick={redirectToHome}
