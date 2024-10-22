@@ -98,6 +98,8 @@ const Chatbox = () => {
     };
     setMessage("");
 
+    console.log("handleSend");
+
     socket.emit("sendMessage", payload);
   };
   const handleEnterKeyPress = (e: any) => {

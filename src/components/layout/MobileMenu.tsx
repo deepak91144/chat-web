@@ -63,7 +63,6 @@ const MobileMenu = () => {
   };
   useEffect(() => {
     fetchFrindRequests();
-    console.log("params", params);
   }, []);
   useEffect(() => {
     if (params.chatId) {
@@ -87,7 +86,7 @@ const MobileMenu = () => {
     socket.on("newPostAlert", () => {
       dispatch(fetchPosts());
     });
-  }, []);
+  }, [socket]);
 
   return (
     <>
