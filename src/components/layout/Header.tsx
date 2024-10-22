@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import SearchDialog from "../specific/SearchDialog";
 import NotificationDialog from "../specific/NotificationDialog";
 import GroupDialog from "../specific/GroupDialog";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { logout } from "../../utils/auth";
 import toast, { Toaster } from "react-hot-toast";
@@ -37,6 +37,8 @@ const Header = () => {
   const [isGroup, setIsGroup] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
   const [openPostDialog, setOpenPostDialog] = useState(false);
+  const [isMessagePage, setIsMessagePage] = useState(false);
+  const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = getUserId();
@@ -74,11 +76,15 @@ const Header = () => {
     await dispatch(clearUserReducer());
     navigate("/login");
   };
-
+  useEffect(() => {
+    if (params.chatId) {
+      setIsMessagePage(true);
+    }
+  }, [params]);
   useEffect(() => {
     socket.on("NEW_MESSAGE_ALERT", (payload: any) => {
       console.log("payload_", payload);
-      if (payload.sender.toString() !== userId.toString()) {
+      if (payload.sender.toString() !== userId.toString() && !isMessagePage) {
         setGotNewMessage(true);
         toast.success("You have a new message");
         setTimeout(() => {

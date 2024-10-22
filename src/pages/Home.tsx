@@ -20,7 +20,6 @@ const Home = () => {
   const handleDeleteChat = (e: any, _id: any) => {
     e.preventDefault();
   };
-  console.log("newMessageAlerts", newMessageAlerts);
 
   const fetchMyChats = () => {
     dispatch(fetchChats());

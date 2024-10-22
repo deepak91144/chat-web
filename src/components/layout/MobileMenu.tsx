@@ -4,7 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddIcon from "@mui/icons-material/Add";
 import MobileMenuItem from "./MobileMenuItem";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchDialog from "../specific/SearchDialog";
 import toast, { Toaster } from "react-hot-toast";
@@ -26,12 +26,14 @@ const socket = io.connect(baseUrl);
 const MobileMenu = () => {
   const [gotNewMessage, setGotNewMessage] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
+  const [isMessagePage, setIsMessagePage] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [isGroup, setIsGroup] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
   const [openPostDialog, setOpenPostDialog] = useState(false);
   const userId = getUserId();
   const dispatch = useDispatch();
+  const params = useParams();
   const {
     friendRequestReducer: { friendRequests },
   } = useSelector((state: any) => state);
@@ -61,25 +63,32 @@ const MobileMenu = () => {
   };
   useEffect(() => {
     fetchFrindRequests();
+    console.log("params", params);
   }, []);
-
+  useEffect(() => {
+    if (params.chatId) {
+      setIsMessagePage(true);
+    }
+  }, [params]);
   useEffect(() => {
     socket.on("NEW_MESSAGE_ALERT", (payload: any) => {
-      console.log("payload_", payload);
-      if (payload.sender.toString() !== userId.toString()) {
+      if (payload.sender.toString() !== userId.toString() && !isMessagePage) {
+        console.log("payload_", payload);
         setGotNewMessage(true);
-        toast.success("You have a new message");
         setTimeout(() => {
           setGotNewMessage(false);
         }, 500);
+
         dispatch(reArrangeTheChats(payload.chatId));
         dispatch(setNewMessageAlert(payload));
       }
     });
+
     socket.on("newPostAlert", () => {
       dispatch(fetchPosts());
     });
   }, []);
+
   return (
     <>
       <div className="bg-[#106DBE] flex md:hidden fixed top-0 w-screen h-[4rem] items-center justify-between  z-40 p-5">

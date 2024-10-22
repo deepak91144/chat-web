@@ -77,7 +77,6 @@ const Chatbox = () => {
   }, [allMsg, messages]);
 
   const handleSend = (attachment: any = "") => {
-    console.log("attachment", attachment);
     const fileDetails = attachment
       ? {
           publicId: "",
@@ -150,7 +149,7 @@ const Chatbox = () => {
           <div ref={scrollToBottomRef}></div>
         </div>
 
-        <div className=" w-[100%] bg-slate-400 fixed flex bottom-[0] h-[5rem] justify-between items-center pl-2 pr-2">
+        <div className=" w-[100%] bg-white fixed flex bottom-[0] h-[5rem] justify-between items-center pl-2 pr-2">
           <div>
             <AttachFileIcon
               style={{ cursor: "pointer" }}
@@ -161,13 +160,14 @@ const Chatbox = () => {
             {isLoading && "Sending..."}
           </div>
           <div className="w-[80%]  bottom-0">
-            <Input
+            <input
               type="text"
               className="w-[100%] h-[100%] border-none"
               placeholder="Type here"
               value={message}
               onChange={handleOnChange}
               onKeyDown={handleEnterKeyPress}
+              style={{ border: "none", outline: "none" }}
             />
           </div>
           <div
@@ -176,7 +176,7 @@ const Chatbox = () => {
             }}
           >
             <SendIcon
-              style={{ marginLeft: "1rem", color: "red", cursor: "pointer" }}
+              sx={{ marginLeft: "1rem", color: "black", cursor: "pointer" }}
             />
           </div>
         </div>

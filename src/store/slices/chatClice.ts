@@ -47,8 +47,10 @@ export const chatSlice = createSlice({
           return chat;
         }
       });
-      oldChats.unshift(result[0]);
-      state.chats = _.uniqBy(oldChats, "_id");
+      if (result.length !== 0) {
+        oldChats.unshift(result[0]);
+        state.chats = _.uniqBy(oldChats, "_id");
+      }
     },
   },
   extraReducers: (builder) => {
