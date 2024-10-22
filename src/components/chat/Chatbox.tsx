@@ -1,6 +1,6 @@
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SendIcon from "@mui/icons-material/Send";
-import { Input, Menu, MenuItem } from "@mui/material";
+import { Menu, MenuItem } from "@mui/material";
 import MessageBox from "./MessageBox";
 import * as io from "socket.io-client";
 import { useParams } from "react-router-dom";

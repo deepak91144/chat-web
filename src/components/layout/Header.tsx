@@ -86,7 +86,7 @@ const Header = () => {
       console.log("payload_", payload);
       if (payload.sender.toString() !== userId.toString() && !isMessagePage) {
         setGotNewMessage(true);
-        toast.success("You have a new message");
+
         setTimeout(() => {
           setGotNewMessage(false);
         }, 500);
